@@ -28,7 +28,7 @@ import com.example.unibites.ui.theme.AlphaNearOpaque
 import com.example.unibites.ui.theme.UniBitesTheme
 
 @Composable
-fun DestinationBar(modifier: Modifier = Modifier) {
+fun LocationBar(modifier: Modifier = Modifier) {
     TopAppBar(
         backgroundColor = UniBitesTheme.colors.uiBackground.copy(alpha = AlphaNearOpaque),
         contentColor = UniBitesTheme.colors.textSecondary,
@@ -37,7 +37,7 @@ fun DestinationBar(modifier: Modifier = Modifier) {
         modifier = modifier
     ) {
         Text(
-            text = "Delivery to 1600 Amphitheater Way",
+            text = "Universidad de los Andes",
             style = MaterialTheme.typography.subtitle1,
             color = UniBitesTheme.colors.textSecondary,
             textAlign = TextAlign.Center,
@@ -54,7 +54,7 @@ fun DestinationBar(modifier: Modifier = Modifier) {
             Icon(
                 imageVector = Icons.Outlined.ExpandMore,
                 tint = UniBitesTheme.colors.brand,
-                contentDescription = stringResource(R.string.label_select_delivery)
+                contentDescription = stringResource(R.string.label_select_location)
             )
         }
     }
@@ -65,8 +65,8 @@ fun DestinationBar(modifier: Modifier = Modifier) {
 @Preview("dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Preview("large font", fontScale = 2f)
 @Composable
-fun PreviewDestinationBar() {
+fun PreviewLocationBar() {
     UniBitesTheme {
-        DestinationBar()
+        LocationBar()
     }
 }

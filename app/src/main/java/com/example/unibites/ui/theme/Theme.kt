@@ -30,11 +30,11 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 private val LightColorPalette = UniBitesColors(
-    brand = Shadow5,
-    brandSecondary = Ocean3,
-    uiBackground = Neutral0,
-    uiBorder = Neutral4,
-    uiFloated = FunctionalGrey,
+    brand = Sea500,
+    brandSecondary = Sea400,
+    uiBackground = Sea100,
+    uiBorder = Sea200,
+    uiFloated = Sea50,
     textSecondary = Neutral7,
     textHelp = Neutral6,
     textInteractive = Neutral0,
@@ -43,14 +43,14 @@ private val LightColorPalette = UniBitesColors(
     iconInteractive = Neutral0,
     iconInteractiveInactive = Neutral1,
     error = FunctionalRed,
-    gradient6_1 = listOf(Shadow4, Ocean3, Shadow2, Ocean3, Shadow4),
-    gradient6_2 = listOf(Rose4, Lavender3, Rose2, Lavender3, Rose4),
-    gradient3_1 = listOf(Shadow2, Ocean3, Shadow4),
-    gradient3_2 = listOf(Rose2, Lavender3, Rose4),
-    gradient2_1 = listOf(Shadow4, Shadow11),
-    gradient2_2 = listOf(Ocean3, Shadow3),
-    gradient2_3 = listOf(Lavender3, Rose2),
-    tornado1 = listOf(Shadow4, Ocean3),
+    gradient6_1 = listOf(Sea400, Sea300, Sea200, Sea300, Sea400),
+    gradient6_2 = listOf(Sea200, Sea100, Sea50, Sea100, Sea200),
+    gradient3_1 = listOf(Sea200, Sea300, Sea400),
+    gradient3_2 = listOf(Sea50, Sea100, Sea200),
+    gradient2_1 = listOf(Sea300, Sea200),
+    gradient2_2 = listOf(Sea400, Sea100),
+    gradient2_3 = listOf(Sea200, Sea400),
+    tornado1 = listOf(Sea300, Sea400),
     isDark = false
 )
 

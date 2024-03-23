@@ -153,20 +153,6 @@ private fun SearchResult(
                     linkTo(top = tag.bottom, bottom = price.top)
                 }
         )
-        Text(
-            text = formatPrice(snack.price),
-            style = MaterialTheme.typography.subtitle1,
-            color = UniBitesTheme.colors.textPrimary,
-            modifier = Modifier.constrainAs(price) {
-                linkTo(
-                    start = image.end,
-                    startMargin = 16.dp,
-                    end = add.start,
-                    endMargin = 16.dp,
-                    bias = 0f
-                )
-            }
-        )
     }
 }
 
