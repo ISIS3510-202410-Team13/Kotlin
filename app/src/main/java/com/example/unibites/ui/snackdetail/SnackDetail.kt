@@ -182,9 +182,13 @@ private fun Body(
                                 seeMore = !seeMore
                             }
                     )
-                    Spacer(Modifier.height(40.dp))
-                    MyUniMap()
-                    Spacer(Modifier.height(16.dp))
+                    Spacer(Modifier.height(4.dp))
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier.fillMaxWidth().heightIn(100.dp)
+                    ) {
+                        MyUniMap()
+                    }
                     UniBitesDivider()
 
                     related.forEach { snackCollection ->

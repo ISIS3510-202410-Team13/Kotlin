@@ -47,7 +47,7 @@ fun MyUniMap(){
         mutableStateOf(MapProperties(mapType = MapType.HYBRID))
     }
     val restaurantLocationState = rememberMarkerState(position = restaurantLocation)
-    GoogleMap(modifier = Modifier.fillMaxSize(0.5f), properties = properties, uiSettings = MapUiSettings(zoomControlsEnabled = true), cameraPositionState = cameraPositionState){
+    GoogleMap(modifier = Modifier.fillMaxSize(), properties = properties, uiSettings = MapUiSettings(zoomControlsEnabled = true), cameraPositionState = cameraPositionState){
         Marker(state = userLocationState,
             title = stringResource(id =R.string.tu_ubicacion),snippet = stringResource(R.string.en_este_momento_estas_aqui)
         ){}
