@@ -126,6 +126,13 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.5.3")
     implementation("io.coil-kt:coil-compose:2.2.2")
 
+    //Google services
+    implementation("com.google.android.gms:play-services-auth:20.4.1")
+
+    //Maps
+    implementation("com.google.maps.android:maps-compose:2.11.2")
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
+
 
     // Add the dependencies for any other desired Firebase products
     // https://firebase.google.com/docs/android/setup#available-libraries
