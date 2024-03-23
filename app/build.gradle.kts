@@ -138,6 +138,9 @@ dependencies {
     implementation(libs.play.services.location.v2110)
     implementation(libs.accompanist.permissions.v0350alpha)
 
+    // Navigation Component
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.4.0")
+    implementation ("androidx.navigation:navigation-ui-ktx:2.4.0")
 
     // Add the dependencies for any other desired Firebase products
     // https://firebase.google.com/docs/android/setup#available-libraries

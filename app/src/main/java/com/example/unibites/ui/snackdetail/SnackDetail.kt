@@ -183,25 +183,7 @@ private fun Body(
                             }
                     )
                     Spacer(Modifier.height(40.dp))
-                    Text(
-                        text = stringResource(R.string.mapa),
-                        style = MaterialTheme.typography.overline,
-                        color = UniBitesTheme.colors.textHelp,
-                        modifier = HzPadding
-                    )
-                    Spacer(Modifier.height(4.dp))
-                    ElevatedButton(
-                        onClick = {},
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 24.dp)
-                    ) {
-                        Text(
-                            text = stringResource(R.string.ver_mapa),
-                            style = MaterialTheme.typography.button,
-                            color = MaterialTheme.colors.onPrimary
-                        )
-                    }
+                    MyUniMap()
                     Spacer(Modifier.height(16.dp))
                     UniBitesDivider()
 
