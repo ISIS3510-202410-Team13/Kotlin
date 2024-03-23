@@ -48,7 +48,12 @@
     <string name="sort">Sort</string>
     <string name="see_more">SEE MORE</string>
     <string name="see_less">SEE LESS</string>
-
+    <string name="restaurante_destino">Restaurante destino</string>
+    <string name="tu_ubicacion">Tu ubicación</string>
+    <string name="mapa">Mapa</string>
+    <string name="en_este_momento_estas_aqui">En este momento estas aqui</string>
+    <string name="ver_mapa">ver mapa</string>
+    <string name="sitio_destino_restaurante">Sitio destino para que ordenes tu comida</string>
 
 
 </resources>

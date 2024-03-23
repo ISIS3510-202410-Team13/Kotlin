@@ -73,6 +73,8 @@ android {
 
 dependencies {
     implementation(libs.play.services.auth)
+    implementation(libs.play.services.location)
+    implementation(libs.androidx.material3.android)
 //    implementation(libs.firebase.auth.common)
 //    implementation(libs.firebase.auth.ktx)
     val composeBom = platform(libs.androidx.compose.bom)
@@ -132,6 +134,9 @@ dependencies {
     //Maps
     implementation("com.google.maps.android:maps-compose:2.11.2")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
+
+    implementation(libs.play.services.location.v2110)
+    implementation(libs.accompanist.permissions.v0350alpha)
 
 
     // Add the dependencies for any other desired Firebase products

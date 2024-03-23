@@ -26,6 +26,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
@@ -35,6 +36,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
@@ -48,6 +50,7 @@ import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
 import com.example.unibites.R
+import com.example.unibites.maps.ui.MyUniMap
 import com.example.unibites.model.Snack
 import com.example.unibites.model.SnackCollection
 import com.example.unibites.model.SnackRepo
@@ -181,19 +184,24 @@ private fun Body(
                     )
                     Spacer(Modifier.height(40.dp))
                     Text(
-                        text = stringResource(R.string.ingredients),
+                        text = stringResource(R.string.mapa),
                         style = MaterialTheme.typography.overline,
                         color = UniBitesTheme.colors.textHelp,
                         modifier = HzPadding
                     )
                     Spacer(Modifier.height(4.dp))
-                    Text(
-                        text = stringResource(R.string.ingredients_list),
-                        style = MaterialTheme.typography.body1,
-                        color = UniBitesTheme.colors.textHelp,
-                        modifier = HzPadding
-                    )
-
+                    ElevatedButton(
+                        onClick = {},
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 24.dp)
+                    ) {
+                        Text(
+                            text = stringResource(R.string.ver_mapa),
+                            style = MaterialTheme.typography.button,
+                            color = MaterialTheme.colors.onPrimary
+                        )
+                    }
                     Spacer(Modifier.height(16.dp))
                     UniBitesDivider()
 
