@@ -14,46 +14,56 @@
   -->
 <resources>
     <string name="app_name">UniBites</string>
-    <string name="label_back">Back</string>
+    <string name="label_back">Atras</string>
 
     <!-- Home Tabs -->
-    <string name="home_feed">Home</string>
-    <string name="home_search">Search</string>
-    <string name="home_profile">Profile</string>
+    <string name="home_feed">Inicio</string>
+    <string name="home_search">Búsqueda</string>
+    <string name="home_profile">Perfil</string>
 
     <!-- Home -->
-    <string name="label_filters">Filters</string>
-    <string name="label_select_delivery">Select delivery address</string>
+    <string name="label_filters">Filtros</string>
+    <string name="label_select_location">Selecciona la ubicación</string>
 
     <!-- Search -->
-    <string name="search_unibites">Search UniBites</string>
-    <string name="search_no_matches">No matches for “%1s”</string>
-    <string name="search_no_matches_retry">Try broadening your search</string>
+    <string name="search_unibites">Busca en UniBites</string>
+    <string name="search_no_matches">No existen resultados para “%1s”</string>
+    <string name="search_no_matches_retry">Intente ampliar su búsqueda</string>
     <string name="search_count">%1d items</string>
-    <string name="label_search">Perform search</string>
+    <string name="label_search">Realizar búsqueda</string>
 
 
-    <!-- Snack Detail -->
-    <string name="detail_header">Details</string>
+    <!-- Restaurante Detail -->
+    <string name="detail_header">Detalles</string>
     <string name="detail_placeholder">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempus, sem vitae convallis imperdiet, lectus nunc pharetra diam, ac rhoncus quam eros eu risus. Nulla pulvinar condimentum erat, pulvinar tempus turpis blandit ut. Etiam sed ipsum sed lacus eleifend hendrerit eu quis quam. Etiam ligula eros, finibus vestibulum tortor ac, ultrices accumsan dolor. Vivamus vel nisl a libero lobortis posuere. Aenean facilisis nibh vel ultrices bibendum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse ac est vitae lacus commodo efficitur at ut massa. Etiam vestibulum sit amet sapien sed varius. Aliquam non ipsum imperdiet, pulvinar enim nec, mollis risus. Fusce id tincidunt nisl.</string>
-    <string name="ingredients">Ingredients</string>
-    <string name="ingredients_list">Vanilla, Almond Flour, Eggs, Butter, Cream, Sugar</string>
-    <string name="close">Close</string>
-    <string name="reset">Reset</string>
-    <string name="price">Price</string>
-    <string name="category">Category</string>
-    <string name="lifestyle">LifeStyle</string>
-    <string name="max_calories">Max Calories</string>
-    <string name="per_serving">per serving</string>
-    <string name="sort">Sort</string>
-    <string name="see_more">SEE MORE</string>
-    <string name="see_less">SEE LESS</string>
+    <string name="ingredients">Ingredientes</string>
+    <string name="ingredients_list">Huevos, Mantequilla, Crema, Azucar</string>
+    <string name="close">Cerrar</string>
+    <string name="reset">Reiniciar</string>
+    <string name="price">Precio</string>
+    <string name="category">Categoría</string>
+    <string name="lifestyle">Estilo de Vida</string>
+    <string name="max_calories">Límite de Calorías</string>
+    <string name="per_serving">por porción</string>
+    <string name="sort">Ordena por</string>
+    <string name="see_more">Ver más</string>
+    <string name="see_less">Ver menos</string>
+    <string name="title_activity_login">ActividadLogin</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="action_sign_in">Inicia sesión o regístrate</string>
+    <string name="action_sign_in_short">Inicia sesión</string>
+    <string name="welcome">"Bienvenido !"</string>
+    <string name="invalid_username">No es un usuario válido</string>
+    <string name="invalid_password">La contraseña debe contener > 5 caracteres</string>
+    <string name="login_failed">"Error de inicio de sesión"</string>
     <string name="restaurante_destino">Restaurante destino</string>
     <string name="tu_ubicacion">Tu ubicación</string>
     <string name="mapa">Mapa</string>
     <string name="en_este_momento_estas_aqui">En este momento estas aqui</string>
     <string name="ver_mapa">ver mapa</string>
     <string name="sitio_destino_restaurante">Sitio destino para que ordenes tu comida</string>
+
 
 
 </resources>

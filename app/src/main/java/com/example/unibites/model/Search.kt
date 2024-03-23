@@ -61,52 +61,52 @@ data class SearchSuggestionGroup(
 private val searchCategoryCollections = listOf(
     SearchCategoryCollection(
         id = 0L,
-        name = "Categories",
+        name = "Categorías",
         categories = listOf(
             SearchCategory(
-                name = "Chips & crackers",
+                name = "Cocina Italiana",
                 imageUrl = "https://source.unsplash.com/UsSdMZ78Q3E"
             ),
             SearchCategory(
-                name = "Fruit snacks",
+                name = "Cocina Internacional",
                 imageUrl = "https://source.unsplash.com/SfP1PtM9Qa8"
             ),
             SearchCategory(
-                name = "Desserts",
+                name = "Cocina Colombiana",
                 imageUrl = "https://source.unsplash.com/_jk8KIyN_uA"
             ),
             SearchCategory(
-                name = "Nuts ",
+                name = "Cocina Rápida",
                 imageUrl = "https://source.unsplash.com/UsSdMZ78Q3E"
             )
         )
     ),
     SearchCategoryCollection(
         id = 1L,
-        name = "Lifestyles",
+        name = "Estilos de Vida",
         categories = listOf(
             SearchCategory(
-                name = "Organic",
+                name = "Organico",
                 imageUrl = "https://source.unsplash.com/7meCnGCJ5Ms"
             ),
             SearchCategory(
-                name = "Gluten Free",
+                name = "Libre de gluten",
                 imageUrl = "https://source.unsplash.com/m741tj4Cz7M"
             ),
             SearchCategory(
-                name = "Paleo",
+                name = "Libre de lácteos",
                 imageUrl = "https://source.unsplash.com/dt5-8tThZKg"
             ),
             SearchCategory(
-                name = "Vegan",
+                name = "Vegano",
                 imageUrl = "https://source.unsplash.com/ReXxkS1m1H0"
             ),
             SearchCategory(
-                name = "Vegitarian",
+                name = "Vegitariano",
                 imageUrl = "https://source.unsplash.com/IGfIGP5ONV0"
             ),
             SearchCategory(
-                name = "Whole30",
+                name = "Pesca Sostenible",
                 imageUrl = "https://source.unsplash.com/9MzCd76xLGk"
             )
         )
@@ -116,21 +116,21 @@ private val searchCategoryCollections = listOf(
 private val searchSuggestions = listOf(
     SearchSuggestionGroup(
         id = 0L,
-        name = "Recent searches",
+        name = "Búsquedas recientes",
         suggestions = listOf(
-            "Cheese",
-            "Apple Sauce"
+            "Comida Italiana",
+            "Comida Japonesa",
         )
     ),
     SearchSuggestionGroup(
         id = 1L,
-        name = "Popular searches",
+        name = "Búsquedas populares",
         suggestions = listOf(
-            "Organic",
-            "Gluten Free",
+            "Organico",
+            "Libre de gluten",
             "Paleo",
-            "Vegan",
-            "Vegitarian",
+            "Vegano",
+            "Vegitariano",
             "Whole30"
         )
     )

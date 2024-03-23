@@ -57,6 +57,7 @@ android {
 
     buildFeatures {
         compose = true
+        viewBinding = true
     }
 
     composeOptions {
@@ -75,8 +76,17 @@ dependencies {
     implementation(libs.play.services.auth)
     implementation(libs.play.services.location)
     implementation(libs.androidx.material3.android)
+//    implementation(libs.firebase.auth)
 //    implementation(libs.firebase.auth.common)
 //    implementation(libs.firebase.auth.ktx)
+    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
+    implementation(libs.androidx.appcompat)
+    implementation(libs.google.android.material)
+    implementation(libs.androidx.annotation)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.firebase.firestore)
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
     androidTestImplementation(composeBom)
