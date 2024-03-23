@@ -70,4 +70,11 @@ val FunctionalGreen = Color(0xff52c41a)
 val FunctionalGrey = Color(0xfff6f6f6)
 val FunctionalDarkGrey = Color(0xff2e2e2e)
 
+val Sea50 = Color(0xFFFFF8EB)
+val Sea100 = Color(0XFFFFebc6)
+val Sea200 = Color(0xFFFFd588)
+val Sea300 = Color(0xFFFFba4a)
+val Sea400 = Color(0xFFFFa630)
+val Sea500 = Color(0xFFF97a07)
+
 const val AlphaNearOpaque = 0.95f
