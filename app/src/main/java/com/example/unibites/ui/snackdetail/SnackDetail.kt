@@ -245,13 +245,6 @@ private fun Title(snack: Snack, scrollProvider: () -> Int) {
             modifier = HzPadding
         )
         Spacer(Modifier.height(4.dp))
-        Text(
-            text = formatPrice(snack.price),
-            style = MaterialTheme.typography.h6,
-            color = UniBitesTheme.colors.textPrimary,
-            modifier = HzPadding
-        )
-
         Spacer(Modifier.height(8.dp))
         UniBitesDivider()
     }

@@ -57,6 +57,7 @@ android {
 
     buildFeatures {
         compose = true
+        viewBinding = true
     }
 
     composeOptions {
@@ -73,10 +74,14 @@ android {
 
 dependencies {
     implementation(libs.play.services.auth)
-    implementation(libs.play.services.location)
-    implementation(libs.androidx.material3.android)
-//    implementation(libs.firebase.auth.common)
-//    implementation(libs.firebase.auth.ktx)
+    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
+    implementation(libs.androidx.appcompat)
+    implementation(libs.google.android.material)
+    implementation(libs.androidx.annotation)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.firebase.firestore)
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
     androidTestImplementation(composeBom)
@@ -112,25 +117,11 @@ dependencies {
     androidTestImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.androidx.compose.ui.test)
 
-//    // Import the Firebase BoM
-//    //noinspection UseTomlInstead
-//    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
-//
-//    // TODO: Add the dependencies for Firebase products you want to use
-//    // When using the BoM, don't specify versions in Firebase dependencies
-//    //noinspection UseTomlInstead
-//    implementation("com.google.firebase:firebase-analytics")
-    implementation("com.google.firebase:firebase-auth-ktx:21.1.0")
-    implementation("com.google.android.gms:play-services-auth:20.4.1")
-
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.0")
-    implementation("androidx.navigation:navigation-compose:2.5.3")
-    implementation("io.coil-kt:coil-compose:2.2.2")
 
     //Google services
     implementation("com.google.android.gms:play-services-auth:20.4.1")
-
+    implementation(libs.play.services.location)
+    implementation(libs.androidx.material3.android)
     //Maps
     implementation("com.google.maps.android:maps-compose:2.11.2")
     implementation("com.google.android.gms:play-services-maps:18.2.0")

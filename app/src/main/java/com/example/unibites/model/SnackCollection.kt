@@ -1,6 +1,8 @@
 package com.example.unibites.model
 
 import androidx.compose.runtime.Immutable
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 @Immutable
 data class SnackCollection(
@@ -12,10 +14,9 @@ data class SnackCollection(
 
 enum class CollectionType { Normal, Highlight }
 
-/**
- * A fake repo
- */
+
 object SnackRepo {
+
     fun getSnacks(): List<SnackCollection> = snackCollections
     fun getSnack(snackId: Long) = snacks.find { it.id == snackId }!!
     fun getRelated(@Suppress("UNUSED_PARAMETER") snackId: Long) = related
@@ -33,47 +34,31 @@ object SnackRepo {
 
 private val tastyTreats = SnackCollection(
     id = 1L,
-    name = "Android's picks",
+    name = "Lo más buscado",
     type = CollectionType.Highlight,
-    snacks = snacks.subList(0, 13)
+    snacks = snacks.subList(0, 4)
 )
 
 private val popular = SnackCollection(
     id = 2L,
-    name = "Popular on UniBites",
-    snacks = snacks.subList(14, 19)
+    name = "Popular en UniBites",
+    snacks = snacks.subList(1, 3)
 )
 
-private val wfhFavs = tastyTreats.copy(
+private val opcionesVeganas = tastyTreats.copy(
     id = 3L,
-    name = "WFH favourites"
+    name = "Opciones Veganas"
 )
 
-private val newlyAdded = popular.copy(
-    id = 4L,
-    name = "Newly Added"
-)
 
-private val exclusive = tastyTreats.copy(
-    id = 5L,
-    name = "Only on UniBites"
-)
-
-private val also = tastyTreats.copy(
-    id = 6L,
-    name = "Customers also visited"
-)
 
 private val snackCollections = listOf(
     tastyTreats,
     popular,
-    wfhFavs,
-    newlyAdded,
-    exclusive
+    opcionesVeganas
 )
 
 private val related = listOf(
-    also,
     popular
 )
 

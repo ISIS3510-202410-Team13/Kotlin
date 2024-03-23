@@ -75,7 +75,7 @@ private fun Feed(
     UniBitesSurface(modifier = modifier.fillMaxSize()) {
         Box {
             SnackCollectionList(snackCollections, filters, onSnackClick)
-            DestinationBar()
+            LocationBar()
         }
     }
 }
