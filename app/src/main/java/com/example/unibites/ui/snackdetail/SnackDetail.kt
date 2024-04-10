@@ -22,8 +22,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material3.ElevatedButton
@@ -80,7 +82,9 @@ private val HzPadding = Modifier.padding(horizontal = 24.dp)
 @Composable
 fun SnackDetail(
     snackId: Long,
-    upPress: () -> Unit
+    upPress: () -> Unit,
+    onMapClick: () -> Unit,
+    snackDetailState: SnackDetailState
 ) {
     val snack = remember(snackId) { SnackRepo.getSnack(snackId) }
     val related = remember(snackId) { SnackRepo.getRelated(snackId) }
@@ -88,7 +92,15 @@ fun SnackDetail(
     Box(Modifier.fillMaxSize()) {
         val scroll = rememberScrollState(0)
         Header()
-        Body(related, scroll)
+        /*if(snackDetailState.loading){
+            LinearProgressIndicator(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 10.dp),
+                color = UniBitesTheme.colors.iconPrimary
+            )
+        }*/
+        Body(related, scroll, onMapClick)
         Title(snack) { scroll.value }
         Image(snack.imageUrl) { scroll.value }
         Up(upPress)
@@ -129,7 +141,8 @@ private fun Up(upPress: () -> Unit) {
 @Composable
 private fun Body(
     related: List<SnackCollection>,
-    scroll: ScrollState
+    scroll: ScrollState,
+    onMapClick: () -> Unit
 ) {
     Column {
         Spacer(
@@ -185,10 +198,16 @@ private fun Body(
                     Spacer(Modifier.height(4.dp))
                     Box(
                         contentAlignment = Alignment.Center,
-                        modifier = Modifier.fillMaxWidth().heightIn(100.dp)
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(100.dp)
                     ) {
-                        MyUniMap()
+                        //MyUniMap()
+                        Button(onClick = onMapClick ) {
+                            Text(text ="Ver en el mapa")
+                        }
                     }
+
                     UniBitesDivider()
 
                     related.forEach { snackCollection ->
@@ -314,7 +333,9 @@ private fun SnackDetailPreview() {
     UniBitesTheme {
         SnackDetail(
             snackId = 1L,
-            upPress = { }
+            upPress = { },
+            onMapClick = { },
+            snackDetailState = SnackDetailState()
         )
     }
 }

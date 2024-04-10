@@ -16,6 +16,9 @@
 val snapshotVersion : String? = System.getenv("COMPOSE_SNAPSHOT_ID")
 
 pluginManagement {
+    plugins {
+        id("org.jetbrains.compose") version "1.6.1"
+    }
     repositories {
         gradlePluginPortal()
         google()
