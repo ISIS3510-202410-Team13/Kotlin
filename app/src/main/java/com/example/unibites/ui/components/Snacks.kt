@@ -74,7 +74,7 @@ private val Density.cardWidthWithPaddingPx
 @Composable
 fun SnackCollection(
     snackCollection: SnackCollection,
-    onSnackClick: (Long) -> Unit,
+    onSnackClick: (String) -> Unit,
     modifier: Modifier = Modifier,
     index: Int = 0,
     highlight: Boolean = true
@@ -122,7 +122,7 @@ fun SnackCollection(
 private fun HighlightedSnacks(
     index: Int,
     snacks: List<Snack>,
-    onSnackClick: (Long) -> Unit,
+    onSnackClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val rowState = rememberLazyListState()
@@ -160,7 +160,7 @@ private fun HighlightedSnacks(
 @Composable
 private fun Snacks(
     snacks: List<Snack>,
-    onSnackClick: (Long) -> Unit,
+    onSnackClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyRow(
@@ -176,7 +176,7 @@ private fun Snacks(
 @Composable
 fun SnackItem(
     snack: Snack,
-    onSnackClick: (Long) -> Unit,
+    onSnackClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     UniBitesSurface(
@@ -212,7 +212,7 @@ fun SnackItem(
 @Composable
 private fun HighlightSnackItem(
     snack: Snack,
-    onSnackClick: (Long) -> Unit,
+    onSnackClick: (String) -> Unit,
     index: Int,
     gradient: List<Color>,
     scrollProvider: () -> Float,

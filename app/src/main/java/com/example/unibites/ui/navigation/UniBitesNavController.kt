@@ -68,7 +68,7 @@ class UniBitesNavController(
         }
     }
 
-    fun navigateToSnackDetail(snackId: Long, from: NavBackStackEntry) {
+    fun navigateToSnackDetail(snackId: String, from: NavBackStackEntry) {
         // In order to discard duplicated navigation events, we check the Lifecycle
         if (from.lifecycleIsResumed()) {
             navController.navigate("${MainDestinations.SNACK_DETAIL_ROUTE}/$snackId")

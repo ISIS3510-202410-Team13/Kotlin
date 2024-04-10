@@ -38,7 +38,7 @@ fun UniBitesApp() {
 }
 
 private fun NavGraphBuilder.unibitesNavGraph(
-    onSnackSelected: (Long, NavBackStackEntry) -> Unit,
+    onSnackSelected: (String, NavBackStackEntry) -> Unit,
     upPress: () -> Unit,
     onNavigateToRoute: (String) -> Unit,
     onNavigateMap: (NavBackStackEntry, Double, Double) -> Unit
@@ -47,17 +47,9 @@ private fun NavGraphBuilder.unibitesNavGraph(
         route = MainDestinations.HOME_ROUTE,
         startDestination = HomeSections.FEED.route
     ) {
-        addHomeGraph(onSnackSelected, onNavigateToRoute)
+        addHomeGraph(onSnackSelected, onNavigateToRoute, upPress= upPress, onNavigateMap = onNavigateMap)
     }
-    composable(
-        "${MainDestinations.SNACK_DETAIL_ROUTE}/{${MainDestinations.SNACK_ID_KEY}}",
-        arguments = listOf(navArgument(MainDestinations.SNACK_ID_KEY) { type = NavType.LongType })
-    ) { backStackEntry ->
-        val arguments = requireNotNull(backStackEntry.arguments)
-        val snackId = arguments.getLong(MainDestinations.SNACK_ID_KEY)
-        val snackViewModel: SnackDetailViewModel = viewModel()
-        SnackDetail(snackId, upPress, { onNavigateMap(backStackEntry, snackViewModel.uiState.latitud, snackViewModel.uiState.longitud) }, snackViewModel.uiState)
-    }
+
     composable(route= "${MainDestinations.MAP_ROUTE}/{latitud}/{longitud}", arguments = listOf(  navArgument("latitud") { type = NavType.StringType }, navArgument("longitud") { type = NavType.StringType })){
 
         val latitud = it.arguments?.getString("latitud")?.toDouble() ?: 0.0

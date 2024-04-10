@@ -62,7 +62,7 @@ import com.example.unibites.ui.utils.formatPrice
 fun SearchResults(
     searchResults: List<Snack>,
     filters: List<Filter>,
-    onSnackClick: (Long) -> Unit
+    onSnackClick: (String) -> Unit
 ) {
     Column {
         FilterBar(filters, onShowFilters = {})
@@ -83,7 +83,7 @@ fun SearchResults(
 @Composable
 private fun SearchResult(
     snack: Snack,
-    onSnackClick: (Long) -> Unit,
+    onSnackClick: (String) -> Unit,
     showDivider: Boolean,
     modifier: Modifier = Modifier
 ) {

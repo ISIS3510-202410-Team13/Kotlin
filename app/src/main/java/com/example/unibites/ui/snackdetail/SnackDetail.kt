@@ -56,6 +56,7 @@ import com.example.unibites.maps.ui.MyUniMap
 import com.example.unibites.model.Snack
 import com.example.unibites.model.SnackCollection
 import com.example.unibites.model.SnackRepo
+import com.example.unibites.model.snacks
 import com.example.unibites.ui.components.UniBitesButton
 import com.example.unibites.ui.components.UniBitesDivider
 import com.example.unibites.ui.components.UniBitesSurface
@@ -81,25 +82,25 @@ private val HzPadding = Modifier.padding(horizontal = 24.dp)
 
 @Composable
 fun SnackDetail(
-    snackId: Long,
+    snackId: String,
     upPress: () -> Unit,
     onMapClick: () -> Unit,
     snackDetailState: SnackDetailState
 ) {
-    val snack = remember(snackId) { SnackRepo.getSnack(snackId) }
-    val related = remember(snackId) { SnackRepo.getRelated(snackId) }
+    val snack = remember(snackId) { snacks.get(0) }
+    val related = remember(snackId) { listOf<SnackCollection>() }
 
     Box(Modifier.fillMaxSize()) {
         val scroll = rememberScrollState(0)
         Header()
-        /*if(snackDetailState.loading){
+        if(snackDetailState.loading){
             LinearProgressIndicator(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 10.dp),
                 color = UniBitesTheme.colors.iconPrimary
             )
-        }*/
+        }
         Body(related, scroll, onMapClick)
         Title(snack) { scroll.value }
         Image(snack.imageUrl) { scroll.value }
@@ -332,7 +333,7 @@ private fun CollapsingImageLayout(
 private fun SnackDetailPreview() {
     UniBitesTheme {
         SnackDetail(
-            snackId = 1L,
+            snackId = ""+1L,
             upPress = { },
             onMapClick = { },
             snackDetailState = SnackDetailState()

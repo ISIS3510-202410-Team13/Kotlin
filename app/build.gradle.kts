@@ -1,158 +1,111 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.parcelize)
-    id("com.google.gms.google-services")  version "4.4.1" apply false
-    id("org.jetbrains.compose")
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("com.google.gms.google-services")
+
 }
 
 android {
-    compileSdk = libs.versions.compileSdk.get().toInt()
     namespace = "com.example.unibites"
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.unibites"
-        minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
+        minSdk = 24
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
 
-    signingConfigs {
-        // We use a bundled debug keystore, to allow debug builds from CI to be upgradable
-        named("debug") {
-            storeFile = rootProject.file("debug.keystore")
-            storePassword = "android"
-            keyAlias = "androiddebugkey"
-            keyPassword = "android"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary = true
         }
     }
 
     buildTypes {
-        getByName("debug") {
-            signingConfig = signingConfigs.getByName("debug")
-        }
-
-        getByName("release") {
-            isMinifyEnabled = true
-            signingConfig = signingConfigs.getByName("debug")
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro")
-        }
-
-        create("benchmark") {
-            initWith(getByName("release"))
-            signingConfig = signingConfigs.getByName("debug")
-            matchingFallbacks.add("release")
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-benchmark-rules.pro")
-            isDebuggable = false
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
-
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
-
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
     buildFeatures {
         compose = true
-        viewBinding = true
     }
-
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+        kotlinCompilerExtensionVersion = "1.5.1"
     }
-
-    packaging.resources {
-        // Multiple dependency bring these files in. Exclude them to enable
-        // our test APK to build (has no effect on our AARs)
-        excludes += "/META-INF/AL2.0"
-        excludes += "/META-INF/LGPL2.1"
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
     }
 }
 
 dependencies {
-    implementation(libs.play.services.auth)
-    implementation(libs.play.services.location)
-    implementation(libs.androidx.material3.android)
-//    implementation(libs.firebase.auth)
-//    implementation(libs.firebase.auth.common)
-//    implementation(libs.firebase.auth.ktx)
-    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
-    implementation(libs.androidx.appcompat)
-    implementation(libs.google.android.material)
-    implementation(libs.androidx.annotation)
-    implementation(libs.androidx.constraintlayout)
-    implementation(libs.lifecycle.livedata.ktx)
-    implementation(libs.androidx.lifecycle.livedata.ktx)
-    implementation(libs.firebase.firestore)
-    val composeBom = platform(libs.androidx.compose.bom)
+
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.constraintlayout.compose)
+    val composeBom = platform("androidx.compose:compose-bom:2024.03.00")
     implementation(composeBom)
     androidTestImplementation(composeBom)
 
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlinx.coroutines.android)
+    // Choose one of the following:
+    // Material Design 3
+    implementation("androidx.compose.material3:material3")
+    // or Material Design 2
+    implementation("androidx.compose.material:material")
+    // or skip Material Design and build directly on top of foundational components
+    implementation("androidx.compose.foundation:foundation")
+    // or only import the main APIs for the underlying toolkit systems,
+    // such as input and measurement/layout
+    implementation("androidx.compose.ui:ui")
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.lifecycle.viewModelCompose)
-    implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.constraintlayout.compose)
+    // Android Studio Preview support
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    debugImplementation("androidx.compose.ui:ui-tooling")
 
-    implementation(libs.androidx.compose.runtime)
-    implementation(libs.androidx.compose.foundation)
-    implementation(libs.androidx.compose.foundation.layout)
-    implementation(libs.androidx.compose.ui.util)
-    implementation(libs.androidx.compose.material)
-    implementation(libs.androidx.compose.animation)
-    implementation(libs.androidx.compose.material.iconsExtended)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    debugImplementation(libs.androidx.compose.ui.tooling)
+    // UI Tests
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
 
-    implementation(libs.coil.kt.compose)
+    // Optional - Included automatically by material, only add when you need
+    // the icons but not the material library (e.g. when using Material3 or a
+    // custom design system based on Foundation)
+    implementation("androidx.compose.material:material-icons-core")
+    // Optional - Add full set of material icons
+    implementation("androidx.compose.material:material-icons-extended")
+    // Optional - Add window size utils
+    implementation("androidx.compose.material3:material3-window-size-class")
 
-    androidTestImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.core)
-    androidTestImplementation(libs.androidx.test.runner)
-    androidTestImplementation(libs.androidx.test.espresso.core)
-    androidTestImplementation(libs.androidx.test.rules)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.kotlinx.coroutines.test)
-    androidTestImplementation(libs.androidx.compose.ui.test)
+    // Optional - Integration with activities
+    implementation("androidx.activity:activity-compose:1.8.2")
+    // Optional - Integration with ViewModels
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+    // Optional - Integration with LiveData
+    implementation("androidx.compose.runtime:runtime-livedata")
+    // Optional - Integration with RxJava
+    implementation("androidx.compose.runtime:runtime-rxjava2")
 
-//    // Import the Firebase BoM
-//    //noinspection UseTomlInstead
-//    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
-//
-//    // TODO: Add the dependencies for Firebase products you want to use
-//    // When using the BoM, don't specify versions in Firebase dependencies
-//    //noinspection UseTomlInstead
-//    implementation("com.google.firebase:firebase-analytics")
-    implementation("com.google.firebase:firebase-auth-ktx:21.1.0")
-    implementation("com.google.android.gms:play-services-auth:20.4.1")
+    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
+    implementation("com.google.firebase:firebase-firestore")
 
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.0")
-    implementation("androidx.navigation:navigation-compose:2.5.3")
     implementation("io.coil-kt:coil-compose:2.2.2")
-
-    //Google services
-    implementation("com.google.android.gms:play-services-auth:20.4.1")
 
     //Maps
     implementation("com.google.maps.android:maps-compose:2.11.2")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
 
-    implementation(libs.play.services.location.v2110)
-    implementation(libs.accompanist.permissions.v0350alpha)
-
     // Navigation Component
     implementation ("androidx.navigation:navigation-fragment-ktx:2.4.0")
     implementation ("androidx.navigation:navigation-ui-ktx:2.4.0")
-
-    // Add the dependencies for any other desired Firebase products
-    // https://firebase.google.com/docs/android/setup#available-libraries
 }

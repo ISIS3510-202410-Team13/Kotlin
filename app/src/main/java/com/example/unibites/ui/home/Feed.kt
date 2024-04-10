@@ -40,11 +40,12 @@ import com.example.unibites.ui.theme.UniBitesTheme
 
 @Composable
 fun Feed(
-    onSnackClick: (Long) -> Unit,
+    onSnackClick: (String) -> Unit,
     onNavigateToRoute: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    homeUiState: HomeState
 ) {
-    val snackCollections = remember { SnackRepo.getSnacks() }
+    //val snackCollections = remember { SnackRepo.getSnacks() }
     val filters = remember { SnackRepo.getFilters() }
     UniBitesScaffold(
         bottomBar = {
@@ -57,7 +58,7 @@ fun Feed(
         modifier = modifier
     ) { paddingValues ->
         Feed(
-            snackCollections,
+            homeUiState.objeto,
             filters,
             onSnackClick,
             Modifier.padding(paddingValues)
@@ -69,7 +70,7 @@ fun Feed(
 private fun Feed(
     snackCollections: List<SnackCollection>,
     filters: List<Filter>,
-    onSnackClick: (Long) -> Unit,
+    onSnackClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     UniBitesSurface(modifier = modifier.fillMaxSize()) {
@@ -84,7 +85,7 @@ private fun Feed(
 private fun SnackCollectionList(
     snackCollections: List<SnackCollection>,
     filters: List<Filter>,
-    onSnackClick: (Long) -> Unit,
+    onSnackClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var filtersVisible by rememberSaveable { mutableStateOf(false) }
@@ -131,6 +132,6 @@ private fun SnackCollectionList(
 @Composable
 fun HomePreview() {
     UniBitesTheme {
-        Feed(onSnackClick = { }, onNavigateToRoute = { })
+        Feed(homeUiState = HomeState(),onSnackClick = { }, onNavigateToRoute = { })
     }
 }
