@@ -7,7 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SignUpViewModel: ViewModel() {
     var uiState by mutableStateOf(SignUpState())
@@ -17,13 +19,15 @@ class SignUpViewModel: ViewModel() {
     init {
         viewModelScope.launch {
             uiState = uiState.copy(loading = true)
-            db.collection("").get().addOnSuccessListener { result ->
-                // TODO()
+            withContext(Dispatchers.IO){
+                db.collection("").get().addOnSuccessListener { result ->
+                    // TODO()
+                }
             }
         }
     }
 }
 
 data class SignUpState(
-    val loading: Boolean = true
+    val loading: Boolean = false
 )
