@@ -1,6 +1,7 @@
 package com.example.unibites.ui
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -18,7 +19,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
-//        FirebaseApp.initializeApp(this);
         setContent { UniBitesApp(auth) }
 
     }
