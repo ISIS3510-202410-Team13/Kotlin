@@ -163,7 +163,7 @@ private fun Body(
 
                     Spacer(Modifier.height(16.dp))
                     Text(
-                        text = stringResource(R.string.detail_header),
+                        text = stringResource(R.string.details),
                         style = MaterialTheme.typography.overline,
                         color = UniBitesTheme.colors.textHelp,
                         modifier = HzPadding
@@ -203,9 +203,11 @@ private fun Body(
                             .fillMaxWidth()
                             .heightIn(100.dp)
                     ) {
-                        //MyUniMap()
-                        Button(onClick = onMapClick ) {
+                       /** Button(onClick = onMapClick ) {
                             Text(text ="Ver en el mapa")
+                        }**/
+                        UniBitesButton(onClick = onMapClick) {
+                            Text(text = stringResource(R.string.See_on_map))
                         }
                     }
 
@@ -216,7 +218,7 @@ private fun Body(
                             SnackCollection(
                                 snackCollection = snackCollection,
                                 onSnackClick = { },
-                                highlight = false
+                                highlight = true
                             )
                         }
                     }

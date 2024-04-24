@@ -66,6 +66,8 @@
     <string name="signin">"Ingresar "</string>
     <string name="signup">"Registro"</string>
     <string name="sign_out">Cerrar sesión</string>
+    <string name="See_on_map">Ver en el mapa</string>
+    <string name="details">Detalles</string>
 
 
 </resources>
