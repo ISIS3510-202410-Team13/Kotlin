@@ -37,7 +37,7 @@ class SignUpViewModel: ViewModel() {
                     }
                     else {
                         Log.w(TAG, "createdUserWithEmail:failure", task.exception)
-                        onErrorSignup(task.exception.toString())
+                        task.exception?.localizedMessage?.let { onErrorSignup(it.toString()) }
 
                     }
                 }

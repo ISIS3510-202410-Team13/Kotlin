@@ -27,14 +27,16 @@ class SignInViewModel: ViewModel() {
     }
 
 
-    fun signIn(email: String, password: String, onSuccessSignIn: () -> Unit, onErrorSignIn: () -> Unit){
+    fun signIn(email: String, password: String, onSuccessSignIn: () -> Unit, onErrorSignIn: (errorMessage: String) -> Unit){
+        uiState = uiState.copy(loading = true)
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { result ->
+            uiState = uiState.copy(loading = false)
             if (result.isSuccessful){
                 val user = auth.currentUser
                 onSuccessSignIn()
             }
             else {
-                onErrorSignIn()
+                result.exception?.localizedMessage?.let { onErrorSignIn(it.toString()) }
             }
         }
     }

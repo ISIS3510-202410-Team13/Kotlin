@@ -82,7 +82,15 @@ class UniBitesNavController(
         }**/
     }
 
+    fun navigateToSignUp(from: NavBackStackEntry) {
+        navController.navigate(MainDestinations.SIGNUP_ROUTE)
+    }
+
     fun signOut() {
+        navController.navigate(MainDestinations.SIGNIN_ROUTE)
+    }
+
+    fun navigateToSignIn(from: NavBackStackEntry) {
         navController.navigate(MainDestinations.SIGNIN_ROUTE)
     }
 }
