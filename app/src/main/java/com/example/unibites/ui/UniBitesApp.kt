@@ -9,22 +9,30 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.example.unibites.Signup.repository.SignUpViewModel
-import com.example.unibites.Signup.ui.SignupDetail
+import com.example.unibites.SignIn.repository.SignInViewModel
+import com.example.unibites.SignIn.ui.SignInDetail
 import com.example.unibites.maps.ui.MyUniMap
+import com.example.unibites.signup.repository.SignUpViewModel
+import androidx.navigation.findNavController
 import com.example.unibites.ui.home.HomeSections
 import com.example.unibites.ui.home.addHomeGraph
 import com.example.unibites.ui.navigation.MainDestinations
 import com.example.unibites.ui.navigation.rememberUniBitesNavController
 import com.example.unibites.ui.theme.UniBitesTheme
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
+import com.example.unibites.signup.ui.SignUpDetail
 
 @Composable
-fun UniBitesApp() {
+fun UniBitesApp(auth: FirebaseAuth) {
     UniBitesTheme {
         val unibitesNavController = rememberUniBitesNavController()
+        val currentUser = auth.currentUser
         NavHost(
             navController = unibitesNavController.navController,
-            startDestination = MainDestinations.SIGUNP_ROUTE
+            startDestination = if(currentUser != null) MainDestinations.HOME_ROUTE else MainDestinations.SIGNIN_ROUTE
+
         ) {
             unibitesNavGraph(
                 onSnackSelected = unibitesNavController::navigateToSnackDetail,
@@ -32,7 +40,9 @@ fun UniBitesApp() {
                 onNavigateToRoute = unibitesNavController::navigateToBottomBarRoute,
                 onNavigateMap = unibitesNavController::navigateToMapScreen,
                 onNavigateHome = unibitesNavController::navigateToHome,
-                onSignOut = unibitesNavController::signOut
+                onSignOut = unibitesNavController::signOut,
+                onNavigateSignUp = unibitesNavController::navigateToSignUp,
+                onNavigateToSignIn = unibitesNavController::navigateToSignIn
             )
         }
     }
@@ -44,6 +54,8 @@ private fun NavGraphBuilder.unibitesNavGraph(
     onNavigateToRoute: (String) -> Unit,
     onNavigateMap: (NavBackStackEntry, Double, Double) -> Unit,
     onNavigateHome: (NavBackStackEntry) -> Unit,
+    onNavigateSignUp: (NavBackStackEntry) -> Unit,
+    onNavigateToSignIn: (NavBackStackEntry) -> Unit,
     onSignOut: () -> Unit
 ) {
     navigation(
@@ -62,11 +74,15 @@ private fun NavGraphBuilder.unibitesNavGraph(
         MyUniMap(latitud, longitud)
     }
 
-    composable(route= MainDestinations.SIGUNP_ROUTE){navBackStackEntry ->
-        val viewModel = viewModel<SignUpViewModel>()
-        SignupDetail(navBackStackEntry,viewModel, onNavigateHome) {
-            viewModel.signIn("fancy@yopmail.com", "juniorcampeon", onSuccessSignIn = {onNavigateHome(navBackStackEntry)}, onErrorSignIn = {})
-        }
+    composable(route= MainDestinations.SIGNIN_ROUTE){ navBackStackEntry ->
+        val viewModel = viewModel<SignInViewModel>()
+        SignInDetail(navBackStackEntry,viewModel, onNavigateHome,  onNavigateToSignUp = {onNavigateSignUp(navBackStackEntry)})
     }
+    composable(route = MainDestinations.SIGNUP_ROUTE) { navBackStackEntry ->
+        val viewModel = viewModel<SignUpViewModel>()
+        SignUpDetail(navBackStackEntry, viewModel, onNavigateHome, onNavigateToSignIn = {onNavigateToSignIn(navBackStackEntry)})
+
+    }
+
 }
 

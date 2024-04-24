@@ -19,8 +19,14 @@ package com.example.unibites.ui.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.LocalContentColor
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.TextFieldColors
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
@@ -30,6 +36,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.compositeOver
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
@@ -51,7 +59,8 @@ fun UniBitesSurface(
     content: @Composable () -> Unit
 ) {
     Box(
-        modifier = modifier.shadow(elevation = elevation, shape = shape, clip = false)
+        modifier = modifier
+            .shadow(elevation = elevation, shape = shape, clip = false)
             .zIndex(elevation.value)
             .then(if (border != null) Modifier.border(border, shape) else Modifier)
             .background(
@@ -63,6 +72,9 @@ fun UniBitesSurface(
         CompositionLocalProvider(LocalContentColor provides contentColor, content = content)
     }
 }
+
+
+
 
 @Composable
 private fun getBackgroundColorForElevation(color: Color, elevation: Dp): Color {

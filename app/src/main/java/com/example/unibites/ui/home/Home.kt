@@ -71,7 +71,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.unibites.R
-import com.example.unibites.Signup.repository.SignUpViewModel
+import com.example.unibites.SignIn.repository.SignInViewModel
 import com.example.unibites.ui.components.UniBitesSurface
 import com.example.unibites.ui.home.search.Search
 import com.example.unibites.ui.navigation.MainDestinations
@@ -105,7 +105,7 @@ fun NavGraphBuilder.addHomeGraph(
         )
     }
     composable(HomeSections.PROFILE.route) {
-        val viewModel = viewModel<SignUpViewModel>()
+        val viewModel = viewModel<SignInViewModel>()
         Profile(onNavigateToRoute, modifier, {
             viewModel.signOut()
             onSignOut()
