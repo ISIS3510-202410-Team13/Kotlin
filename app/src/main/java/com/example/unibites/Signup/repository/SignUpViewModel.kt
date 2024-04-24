@@ -41,6 +41,10 @@ class SignUpViewModel: ViewModel() {
             }
         }
     }
+
+    fun signOut() {
+        auth.signOut()
+    }
 }
 
 data class SignUpState(

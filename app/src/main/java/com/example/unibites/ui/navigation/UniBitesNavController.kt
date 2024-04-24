@@ -84,9 +84,14 @@ class UniBitesNavController(
     }
 
     fun navigateToHome(from: NavBackStackEntry) {
-        if (from.lifecycleIsResumed()) {
-            navController.navigate(MainDestinations.HOME_ROUTE)
-        }
+        navController.navigate(MainDestinations.HOME_ROUTE)
+        /**if (from.lifecycleIsResumed()) {
+
+        }**/
+    }
+
+    fun signOut() {
+        navController.navigate(MainDestinations.SIGUNP_ROUTE)
     }
 }
 

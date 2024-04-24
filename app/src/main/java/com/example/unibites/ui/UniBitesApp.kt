@@ -31,7 +31,8 @@ fun UniBitesApp() {
                 upPress = unibitesNavController::upPress,
                 onNavigateToRoute = unibitesNavController::navigateToBottomBarRoute,
                 onNavigateMap = unibitesNavController::navigateToMapScreen,
-                onNavigateHome = unibitesNavController::navigateToHome
+                onNavigateHome = unibitesNavController::navigateToHome,
+                onSignOut = unibitesNavController::signOut
             )
         }
     }
@@ -42,13 +43,16 @@ private fun NavGraphBuilder.unibitesNavGraph(
     upPress: () -> Unit,
     onNavigateToRoute: (String) -> Unit,
     onNavigateMap: (NavBackStackEntry, Double, Double) -> Unit,
-    onNavigateHome: (NavBackStackEntry) -> Unit
+    onNavigateHome: (NavBackStackEntry) -> Unit,
+    onSignOut: () -> Unit
 ) {
     navigation(
         route = MainDestinations.HOME_ROUTE,
         startDestination = HomeSections.FEED.route
     ) {
-        addHomeGraph(onSnackSelected, onNavigateToRoute, upPress= upPress, onNavigateMap = onNavigateMap)
+        addHomeGraph(onSnackSelected, onNavigateToRoute, upPress= upPress, onNavigateMap = onNavigateMap, onSignOut = {
+            onSignOut()
+        })
     }
 
     composable(route= "${MainDestinations.MAP_ROUTE}/{latitud}/{longitud}", arguments = listOf(  navArgument("latitud") { type = NavType.StringType }, navArgument("longitud") { type = NavType.StringType })){
