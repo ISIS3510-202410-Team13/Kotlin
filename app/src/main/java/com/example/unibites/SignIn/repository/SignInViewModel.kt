@@ -1,20 +1,16 @@
-package com.example.unibites.Signup.repository
+package com.example.unibites.SignIn.repository
 
 import android.widget.Toast
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
-import com.google.firebase.firestore.firestore
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
-class SignUpViewModel: ViewModel() {
-    var uiState by mutableStateOf(SignUpState())
+class SignInViewModel: ViewModel() {
+    var uiState by mutableStateOf(SignInState())
 
     //var db = Firebase.firestore
 
@@ -34,6 +30,7 @@ class SignUpViewModel: ViewModel() {
     fun signIn(email: String, password: String, onSuccessSignIn: () -> Unit, onErrorSignIn: () -> Unit){
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { result ->
             if (result.isSuccessful){
+                val user = auth.currentUser
                 onSuccessSignIn()
             }
             else {
@@ -47,7 +44,7 @@ class SignUpViewModel: ViewModel() {
     }
 }
 
-data class SignUpState(
+data class SignInState(
     val loading: Boolean = false,
     val loggedIn: Boolean = false
 )

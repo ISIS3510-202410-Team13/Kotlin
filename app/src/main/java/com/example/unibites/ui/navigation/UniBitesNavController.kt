@@ -1,27 +1,19 @@
 package com.example.unibites.ui.navigation
 
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material3.ElevatedButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.unibites.R
 
 
 object MainDestinations {
-    const val SIGUNP_ROUTE = "signup"
+    const val SIGNIN_ROUTE = "signin"
+    const val SIGNUP_ROUTE = "signup"
     const val HOME_ROUTE = "home"
     const val SNACK_DETAIL_ROUTE = "snack"
     const val SNACK_ID_KEY = "snackId"
@@ -91,7 +83,7 @@ class UniBitesNavController(
     }
 
     fun signOut() {
-        navController.navigate(MainDestinations.SIGUNP_ROUTE)
+        navController.navigate(MainDestinations.SIGNIN_ROUTE)
     }
 }
 
