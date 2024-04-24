@@ -21,9 +21,11 @@ import com.example.unibites.R
 
 
 object MainDestinations {
+    const val SIGUNP_ROUTE = "signup"
     const val HOME_ROUTE = "home"
     const val SNACK_DETAIL_ROUTE = "snack"
     const val SNACK_ID_KEY = "snackId"
+    const val MAP_ROUTE = "map"
 }
 
 
@@ -67,11 +69,29 @@ class UniBitesNavController(
         }
     }
 
-    fun navigateToSnackDetail(snackId: Long, from: NavBackStackEntry) {
+    fun navigateToSnackDetail(snackId: String, from: NavBackStackEntry) {
         // In order to discard duplicated navigation events, we check the Lifecycle
         if (from.lifecycleIsResumed()) {
             navController.navigate("${MainDestinations.SNACK_DETAIL_ROUTE}/$snackId")
         }
+    }
+
+    fun navigateToMapScreen( from: NavBackStackEntry, latitud: Double, longitud: Double) {
+        // In order to discard duplicated navigation events, we check the Lifecycle
+        if (from.lifecycleIsResumed()) {
+            navController.navigate("${MainDestinations.MAP_ROUTE}/${latitud.toString()}/${longitud.toString()}")
+        }
+    }
+
+    fun navigateToHome(from: NavBackStackEntry) {
+        navController.navigate(MainDestinations.HOME_ROUTE)
+        /**if (from.lifecycleIsResumed()) {
+
+        }**/
+    }
+
+    fun signOut() {
+        navController.navigate(MainDestinations.SIGUNP_ROUTE)
     }
 }
 

@@ -1,44 +1,45 @@
 {
   "project_info": {
-    "project_number": "184635365468",
-    "project_id": "unibites-b49b1",
-    "storage_bucket": "unibites-b49b1.appspot.com"
+    "project_number": "440685749921",
+    "project_id": "unibites-69b26",
+    "storage_bucket": "unibites-69b26.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:184635365468:android:a8aecfc3496336bff9ee99",
+        "mobilesdk_app_id": "1:440685749921:android:619bcc65afb76adb38b2e0",
         "android_client_info": {
           "package_name": "com.example.unibites"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "184635365468-eoldahktmig4gkl8nlniim0tmsvtbor5.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.unibites",
-            "certificate_hash": "a0bdb3b6f0c4be90c69d5f4c1df090807fd7fe1f"
-          }
-        },
-        {
-          "client_id": "184635365468-ccgn73a7b0667scj4ngeetpdl67iri22.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDPWcjYKzLbWKNVYnAc-CDmpBdMHmjjH6o"
+          "current_key": "AIzaSyB5hk8fUA1f2m3cp1rsVAylWCxWSHs1rWI"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "184635365468-ccgn73a7b0667scj4ngeetpdl67iri22.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:440685749921:android:db2358824d69a62138b2e0",
+        "android_client_info": {
+          "package_name": "com.unibites.unibitesapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5hk8fUA1f2m3cp1rsVAylWCxWSHs1rWI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
         }
       }
     }

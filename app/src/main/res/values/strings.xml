@@ -63,7 +63,8 @@
     <string name="en_este_momento_estas_aqui">En este momento estas aqui</string>
     <string name="ver_mapa">ver mapa</string>
     <string name="sitio_destino_restaurante">Sitio destino para que ordenes tu comida</string>
-
+    <string name="Signup">"Ingresar "</string>
+    <string name="sign_out">Cerrar sesión</string>
 
 
 </resources>

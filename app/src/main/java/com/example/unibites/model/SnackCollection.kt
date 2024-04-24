@@ -18,8 +18,8 @@ enum class CollectionType { Normal, Highlight }
 object SnackRepo {
 
     fun getSnacks(): List<SnackCollection> = snackCollections
-    fun getSnack(snackId: Long) = snacks.find { it.id == snackId }!!
-    fun getRelated(@Suppress("UNUSED_PARAMETER") snackId: Long) = related
+    fun getSnack(snackId: String) = snacks.find { it.id == snackId }!!
+    fun getRelated(@Suppress("UNUSED_PARAMETER") snackId: String) = related
     fun getFilters() = filters
     fun getPriceFilters() = priceFilters
     fun getSortFilters() = sortFilters
@@ -42,7 +42,7 @@ private val tastyTreats = SnackCollection(
 private val popular = SnackCollection(
     id = 2L,
     name = "Popular en UniBites",
-    snacks = snacks.subList(1, 3)
+    snacks = snacks.subList(0,1)
 )
 
 private val opcionesVeganas = tastyTreats.copy(

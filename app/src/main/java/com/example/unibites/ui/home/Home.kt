@@ -64,28 +64,73 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import androidx.core.os.ConfigurationCompat
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.unibites.R
+import com.example.unibites.Signup.repository.SignUpViewModel
 import com.example.unibites.ui.components.UniBitesSurface
 import com.example.unibites.ui.home.search.Search
+import com.example.unibites.ui.navigation.MainDestinations
+import com.example.unibites.ui.snackdetail.SnackDetail
+import com.example.unibites.ui.snackdetail.SnackDetailViewModel
 import com.example.unibites.ui.theme.UniBitesTheme
 import java.util.Locale
 
 fun NavGraphBuilder.addHomeGraph(
-    onSnackSelected: (Long, NavBackStackEntry) -> Unit,
+    onSnackSelected: (String, NavBackStackEntry) -> Unit,
     onNavigateToRoute: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    upPress: () -> Unit,
+    onNavigateMap: (NavBackStackEntry, Double, Double) -> Unit,
+    onSignOut: () -> Unit
 ) {
     composable(HomeSections.FEED.route) { from ->
-        Feed(onSnackClick = { id -> onSnackSelected(id, from) }, onNavigateToRoute, modifier)
+        val viewModel: HomeViewModel = viewModel()
+        Feed(
+            onSnackClick = { id -> onSnackSelected(id, from) },
+            onNavigateToRoute,
+            modifier,
+            viewModel.uiState
+        )
     }
     composable(HomeSections.SEARCH.route) { from ->
-        Search(onSnackClick = { id -> onSnackSelected(id, from) }, onNavigateToRoute, modifier)
+        Search(
+            onSnackClick = { id -> onSnackSelected(id.toString(), from) },
+            onNavigateToRoute,
+            modifier
+        )
     }
     composable(HomeSections.PROFILE.route) {
-        Profile(onNavigateToRoute, modifier)
+        val viewModel = viewModel<SignUpViewModel>()
+        Profile(onNavigateToRoute, modifier, {
+            viewModel.signOut()
+            onSignOut()
+        })
+    }
+    composable(
+        "${MainDestinations.SNACK_DETAIL_ROUTE}/{llave}",
+        arguments = listOf(navArgument("llave") { type = NavType.StringType })
+    ) { backStackEntry ->
+        /*val arguments = requireNotNull(backStackEntry.arguments)
+        val snackId = arguments.getString(MainDestinations.SNACK_ID_KEY)**/
+        val snackViewModel: SnackDetailViewModel = viewModel()
+        SnackDetail(
+            "snackId" ?: "",
+            upPress,
+            {
+                onNavigateMap(
+                    backStackEntry,
+                    snackViewModel.uiState.latitud,
+                    snackViewModel.uiState.longitud
+                )
+            },
+            snackViewModel.uiState
+        )
+
     }
 }
 
