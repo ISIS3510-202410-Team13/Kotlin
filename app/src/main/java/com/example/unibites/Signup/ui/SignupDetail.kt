@@ -22,9 +22,7 @@ fun SignupDetail(
             onNavigateHome(navBackStackEntry)
         }
     }
-    Button(onClick = { onClick() }) {
-        Text(text = stringResource(R.string.Signup))
-    }
+    body(onClick)
 }
 
 @Composable
@@ -33,8 +31,12 @@ fun header() {
 }
 
 @Composable
-fun body() {
-    // TODO()
+fun body(
+    onClick: () -> Unit
+) {
+    Button(onClick = { onClick() }) {
+        Text(text = stringResource(R.string.Signup))
+    }
 }
 
 @Composable

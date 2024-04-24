@@ -16,7 +16,7 @@ import kotlinx.coroutines.withContext
 class SignUpViewModel: ViewModel() {
     var uiState by mutableStateOf(SignUpState())
 
-    var db = Firebase.firestore
+    //var db = Firebase.firestore
 
     var auth = Firebase.auth
 
