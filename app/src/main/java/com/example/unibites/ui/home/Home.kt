@@ -85,7 +85,7 @@ fun NavGraphBuilder.addHomeGraph(
     onNavigateToRoute: (String) -> Unit,
     modifier: Modifier = Modifier,
     upPress: () -> Unit,
-    onNavigateMap: (NavBackStackEntry, Double, Double) -> Unit,
+    onNavigateMap: (String, NavBackStackEntry, Double, Double) -> Unit,
     onSignOut: () -> Unit
 ) {
     composable(HomeSections.FEED.route) { from ->
@@ -115,14 +115,15 @@ fun NavGraphBuilder.addHomeGraph(
         "${MainDestinations.SNACK_DETAIL_ROUTE}/{llave}",
         arguments = listOf(navArgument("llave") { type = NavType.StringType })
     ) { backStackEntry ->
-        /*val arguments = requireNotNull(backStackEntry.arguments)
-        val snackId = arguments.getString(MainDestinations.SNACK_ID_KEY)**/
+        val arguments = requireNotNull(backStackEntry.arguments)
+        val snackId = arguments.getString(MainDestinations.SNACK_ID_KEY)
         val snackViewModel: SnackDetailViewModel = viewModel()
         SnackDetail(
-            "snackId" ?: "",
+            snackId ?: "",
             upPress,
             {
                 onNavigateMap(
+                    snackId.toString(),
                     backStackEntry,
                     snackViewModel.uiState.latitud,
                     snackViewModel.uiState.longitud

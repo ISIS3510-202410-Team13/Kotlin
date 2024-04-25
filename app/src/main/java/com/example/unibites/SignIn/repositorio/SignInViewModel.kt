@@ -15,21 +15,6 @@ import com.google.firebase.auth.auth
 class SignInViewModel: ViewModel() {
     var uiState by mutableStateOf(SignInState())
 
-    private val cancellationSignal: CancellationSignal? = null
-
-    private val authenticationCallback: BiometricPrompt.AuthenticationCallback
-        get() =
-            @RequiresApi(Build.VERSION_CODES.P)
-            object : BiometricPrompt.AuthenticationCallback() {
-                override fun onAuthenticationError(errorCode: Int, errString: CharSequence?) {
-                    super.onAuthenticationError(errorCode, errString)
-                }
-
-                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult?) {
-                    super.onAuthenticationSucceeded(result)
-                }
-            }
-
     var auth = Firebase.auth
 
 

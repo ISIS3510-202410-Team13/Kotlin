@@ -68,10 +68,10 @@ class UniBitesNavController(
         }
     }
 
-    fun navigateToMapScreen( from: NavBackStackEntry, latitud: Double, longitud: Double) {
+    fun navigateToMapScreen( snackId: String, from: NavBackStackEntry, latitud: Double, longitud: Double) {
         // In order to discard duplicated navigation events, we check the Lifecycle
         if (from.lifecycleIsResumed()) {
-            navController.navigate("${MainDestinations.MAP_ROUTE}/${latitud.toString()}/${longitud.toString()}")
+            navController.navigate("${MainDestinations.MAP_ROUTE}/$snackId/${latitud.toString()}/${longitud.toString()}")
         }
     }
 

@@ -49,7 +49,7 @@ private fun NavGraphBuilder.unibitesNavGraph(
     onSnackSelected: (String, NavBackStackEntry) -> Unit,
     upPress: () -> Unit,
     onNavigateToRoute: (String) -> Unit,
-    onNavigateMap: (NavBackStackEntry, Double, Double) -> Unit,
+    onNavigateMap: (String, NavBackStackEntry, Double, Double) -> Unit,
     onNavigateHome: (NavBackStackEntry) -> Unit,
     onNavigateSignUp: (NavBackStackEntry) -> Unit,
     onNavigateToSignIn: (NavBackStackEntry) -> Unit,
