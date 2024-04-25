@@ -1,18 +1,34 @@
-package com.example.unibites.SignIn.repository
+package com.example.unibites.SignIn.repositorio
 
+import android.hardware.biometrics.BiometricPrompt
+import android.os.Build
+import android.os.CancellationSignal
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
 
 class SignInViewModel: ViewModel() {
     var uiState by mutableStateOf(SignInState())
 
-    //var db = Firebase.firestore
+    private val cancellationSignal: CancellationSignal? = null
+
+    private val authenticationCallback: BiometricPrompt.AuthenticationCallback
+        get() =
+            @RequiresApi(Build.VERSION_CODES.P)
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence?) {
+                    super.onAuthenticationError(errorCode, errString)
+                }
+
+                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult?) {
+                    super.onAuthenticationSucceeded(result)
+                }
+            }
 
     var auth = Firebase.auth
 
@@ -43,6 +59,10 @@ class SignInViewModel: ViewModel() {
 
     fun signOut() {
         auth.signOut()
+    }
+
+    fun signInWithBiometric(onSuccessSignIn: () -> Unit, onErrorSignIn: (errorMessage: String) -> Unit) {
+
     }
 }
 

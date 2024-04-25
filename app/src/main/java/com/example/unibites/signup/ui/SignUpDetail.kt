@@ -38,7 +38,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavBackStackEntry
 import com.example.unibites.R
-import com.example.unibites.signup.repository.SignUpViewModel
+import com.example.unibites.signup.repositorio.SignUpViewModel
 import com.example.unibites.ui.components.UniBitesButton
 import com.example.unibites.ui.components.UniBitesSurface
 import com.example.unibites.ui.home.search.NoResults
@@ -47,10 +47,10 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun SignUpDetail(
-        navBackStackEntry: NavBackStackEntry,
-        viewModel: SignUpViewModel,
-        onNavigateHome: (NavBackStackEntry) -> Unit,
-        onNavigateToSignIn: (NavBackStackEntry) -> Unit
+    navBackStackEntry: NavBackStackEntry,
+    viewModel: SignUpViewModel,
+    onNavigateHome: (NavBackStackEntry) -> Unit,
+    onNavigateToSignIn: (NavBackStackEntry) -> Unit
 ){
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -88,7 +88,7 @@ fun SignUpDetail(
                         email = it
                         emailError = !isValidEmail(it)
                     },
-                    label = { Text("Correo Electrónico") },
+                    label = { Text(stringResource(R.string.emai)) },
                     isError = emailError,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                     supportingText = {
@@ -118,7 +118,7 @@ fun SignUpDetail(
                         password = it
                         passwordError = it.length < 6 || it.length > 20
                     },
-                    label = { Text("Contraseña") },
+                    label = { Text(stringResource(R.string.password)) },
                     visualTransformation = PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     isError = passwordError,
@@ -165,7 +165,7 @@ fun SignUpDetail(
 
                                     }
                                 },
-                                onErrorSignup = { errorMessage ->
+                                onErrorSignup = { errorMessage : String ->
                                     coroutineScope.launch {
                                         Toast.makeText(
                                             context,

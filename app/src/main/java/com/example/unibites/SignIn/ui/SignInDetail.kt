@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -24,13 +23,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavBackStackEntry
 import com.example.unibites.R
-import com.example.unibites.SignIn.repository.SignInViewModel
+import com.example.unibites.SignIn.repositorio.SignInViewModel
 import com.example.unibites.ui.theme.UniBitesTheme
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
@@ -125,6 +123,8 @@ fun SignInDetail(
                     modifier = Modifier.clickable { onNavigateToSignUp(navBackStackEntry) } // Add click modifier
                 )
                 Spacer(modifier = Modifier.height(16.dp))
+
+                Spacer(modifier = Modifier.height(16.dp))
                 Body(
                     onClick = {
                         if (buttonEnabled) {
@@ -155,7 +155,30 @@ fun SignInDetail(
                         }
                     },
                     loading = viewModel.uiState.loading,
-                    enabled = buttonEnabled
+                    enabled = buttonEnabled,
+                    onBioAuthenticate = {
+                        viewModel.signInWithBiometric(
+                            onSuccessSignIn = {
+                                coroutineScope.launch {
+                                    Toast.makeText(
+                                        context,
+                                        "Inicio de sesión satisfactorio",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    onNavigateHome(navBackStackEntry)
+                                }
+                            },
+                            onErrorSignIn = {
+                                coroutineScope.launch {
+                                    Toast.makeText(
+                                        context,
+                                        "Contraseña o correo incorrecto, intenta de nuevo.",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                            }
+                        )
+                    }
                 )
             }
         }
@@ -177,6 +200,7 @@ fun Body(
     onClick: () -> Unit,
     loading: Boolean,
     enabled: Boolean,
+    onBioAuthenticate : () -> Unit
 ) {
     UniBitesButton(
         onClick = onClick,
@@ -190,6 +214,11 @@ fun Body(
         } else {
             Text("Inicia Sesión")
         }
+    }
+    Spacer(modifier = Modifier.height(16.dp))
+    UniBitesButton(onClick = { onBioAuthenticate() }) {
+        Text(stringResource(R.string.signin_bio))
+
     }
 }
 

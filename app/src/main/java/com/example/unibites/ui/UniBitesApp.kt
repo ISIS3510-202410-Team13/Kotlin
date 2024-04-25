@@ -9,19 +9,16 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.example.unibites.SignIn.repository.SignInViewModel
+import com.example.unibites.SignIn.repositorio.SignInViewModel
 import com.example.unibites.SignIn.ui.SignInDetail
 import com.example.unibites.maps.ui.MyUniMap
-import com.example.unibites.signup.repository.SignUpViewModel
-import androidx.navigation.findNavController
+import com.example.unibites.signup.repositorio.SignUpViewModel
 import com.example.unibites.ui.home.HomeSections
 import com.example.unibites.ui.home.addHomeGraph
 import com.example.unibites.ui.navigation.MainDestinations
 import com.example.unibites.ui.navigation.rememberUniBitesNavController
 import com.example.unibites.ui.theme.UniBitesTheme
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
 import com.example.unibites.signup.ui.SignUpDetail
 
 @Composable

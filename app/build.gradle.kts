@@ -111,4 +111,8 @@ dependencies {
 
     //auth dependencies
     implementation("com.google.firebase:firebase-auth")
+
+    //biometric dependencies
+    implementation("androidx.biometric:biometric:1.1.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
 }

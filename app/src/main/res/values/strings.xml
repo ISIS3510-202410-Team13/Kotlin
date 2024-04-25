@@ -68,6 +68,9 @@
     <string name="sign_out">Cerrar sesión</string>
     <string name="See_on_map">Ver en el mapa</string>
     <string name="details">Detalles</string>
+    <string name="emai">Correo Electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="signin_bio">Iniciar ssesión con huella</string>
 
 
 </resources>

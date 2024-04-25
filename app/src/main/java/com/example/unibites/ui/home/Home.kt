@@ -71,7 +71,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.unibites.R
-import com.example.unibites.SignIn.repository.SignInViewModel
+import com.example.unibites.SignIn.repositorio.SignInViewModel
 import com.example.unibites.ui.components.UniBitesSurface
 import com.example.unibites.ui.home.search.Search
 import com.example.unibites.ui.navigation.MainDestinations
