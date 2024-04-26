@@ -83,7 +83,7 @@ fun SnackCollection(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .heightIn(min = 56.dp)
+                .heightIn(min = 65.dp)
                 .padding(start = 24.dp)
         ) {
             Text(
@@ -96,19 +96,20 @@ fun SnackCollection(
                     .weight(1f)
                     .wrapContentWidth(Alignment.Start)
             )
-            IconButton(
-                onClick = { /* todo */ },
-                modifier = Modifier.align(Alignment.CenterVertically)
-            ) {
-                Icon(
-                    imageVector = mirroringIcon(
-                        ltrIcon = Icons.Outlined.ArrowForward,
-                        rtlIcon = Icons.Outlined.ArrowBack
-                    ),
-                    tint = UniBitesTheme.colors.brand,
-                    contentDescription = null
-                )
-            }
+
+//            IconButton(
+//                onClick = { /* todo */ },
+//                modifier = Modifier.align(Alignment.CenterVertically)
+//            ) {
+//                Icon(
+//                    imageVector = mirroringIcon(
+//                        ltrIcon = Icons.Outlined.ArrowForward,
+//                        rtlIcon = Icons.Outlined.ArrowBack
+//                    ),
+//                    tint = UniBitesTheme.colors.brand,
+//                    contentDescription = null
+//                )
+//            }
         }
         if (highlight && snackCollection.type == CollectionType.Highlight) {
             HighlightedSnacks(index, snackCollection.snacks, onSnackClick)

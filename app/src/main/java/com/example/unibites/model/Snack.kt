@@ -7,6 +7,7 @@ import androidx.compose.runtime.Immutable
 data class Snack(
     val id: String,
     val name: String,
+    val description: String = "",
     val imageUrl: String,
     val tagline: String = "",
     val tags: Set<String> = emptySet(),

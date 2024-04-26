@@ -50,15 +50,15 @@ class HomeViewModel: ViewModel() {
                                                 if (document != null) {
                                                         val latitud = document.getDouble("lat")
                                                         val longitud = document.getDouble("long")
-                                                        val descripcion = document.getString("description")
+                                                        val description = document.getString("description")
                                                         val nombre = document.getString("name")
                                                         val imagen = document.getString("url")
                                                         val price = document.getString("price")
                                                         val rating = document.getString("rating")
                                                         list.add(Snack(
                                                                 id = document.id,
-                                                                name = nombre ?: "",
-                                                                //descripcion = descripcion ?: "",
+                                                                name = nombre  ?: "",
+                                                                description = description ?: "",
                                                                 price = price ?: "",
                                                                 rating = rating ?: "",
                                                                 imageUrl = imagen ?: "",
