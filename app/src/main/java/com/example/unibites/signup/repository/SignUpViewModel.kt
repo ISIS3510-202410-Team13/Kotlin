@@ -24,6 +24,7 @@ class SignUpViewModel: ViewModel() {
         }
     }
 
+    // prueba 
     fun signUp(email: String, password: String, onSuccessRegister: () -> Unit,onErrorSignup: (errorMessage: String) -> Unit){
         uiState = uiState.copy(loading = true)
         auth.createUserWithEmailAndPassword(email, password)

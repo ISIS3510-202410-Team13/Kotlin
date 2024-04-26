@@ -25,7 +25,7 @@ import com.google.maps.android.compose.rememberMarkerState
 
 val userLocation = LatLng(4.6029286, -74.0653713)
 
-
+// prueba
 @Composable
 fun MyUniMap(latitud: Double, longitud: Double){
     var ubicacionRerstaurante = LatLng(latitud, longitud)

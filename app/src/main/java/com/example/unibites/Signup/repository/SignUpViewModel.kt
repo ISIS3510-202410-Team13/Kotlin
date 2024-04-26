@@ -1,53 +1,57 @@
-package com.example.unibites.Signup.repository
+package com.example.unibites.signup.repository
 
+import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.ViewModel
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
-import com.google.firebase.firestore.firestore
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+
 
 class SignUpViewModel: ViewModel() {
     var uiState by mutableStateOf(SignUpState())
 
-    //var db = Firebase.firestore
-
     var auth = Firebase.auth
 
-
     init {
-        if (auth.currentUser == null) {
-            // No user is signed in
+        if(auth.currentUser == null){
+            //
         } else {
-            // User is signed in
-            uiState = uiState.copy(loggedIn = true)
+            uiState = uiState.copy(registered = true)
         }
     }
 
+    // prueba 
+    fun signUp(email: String, password: String, onSuccessRegister: () -> Unit,onErrorSignup: (errorMessage: String) -> Unit){
+        uiState = uiState.copy(loading = true)
+        auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener {
+                    task ->
+                    uiState = uiState.copy(loading = false)
+                    if(task.isSuccessful){
+                        Log.d(TAG, "createUserWithEmail:success")
+                        val user = auth.currentUser
+                        onSuccessRegister()
+                    }
+                    else {
+                        Log.w(TAG, "createdUserWithEmail:failure", task.exception)
+                        task.exception?.localizedMessage?.let { onErrorSignup(it.toString()) }
 
-    fun signIn(email: String, password: String, onSuccessSignIn: () -> Unit, onErrorSignIn: () -> Unit){
-        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { result ->
-            if (result.isSuccessful){
-                onSuccessSignIn()
-            }
-            else {
-                onErrorSignIn()
-            }
-        }
+                    }
+                }
     }
 
-    fun signOut() {
-        auth.signOut()
+    companion object {
+        private const val TAG = "EmailPassword"
     }
 }
 
+
 data class SignUpState(
-    val loading: Boolean = false,
-    val loggedIn: Boolean = false
+        val loading: Boolean = false,
+        val registered: Boolean = false
 )
+
