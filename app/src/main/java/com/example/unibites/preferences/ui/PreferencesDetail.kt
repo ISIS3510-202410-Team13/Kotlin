@@ -58,7 +58,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavBackStackEntry
 import com.example.unibites.R
 import com.example.unibites.preferences.repository.PreferencesViewModel
-import com.example.unibites.ui.CrashButton
 import com.example.unibites.ui.components.UniBitesButton
 import com.example.unibites.ui.components.UniBitesSurface
 import com.example.unibites.ui.home.FilterTitle
@@ -232,12 +231,6 @@ fun PreferencesDetail(
                     }
 
                     Spacer(modifier = Modifier.height(32.dp))
-                    CrashButton(
-                        onClick = {
-                            // Trigger a crash by throwing an exception
-                            throw RuntimeException("Test Crash")
-                        }
-                    )
                     Button(
                         onClick = {
                             viewModel.savePreferences(
