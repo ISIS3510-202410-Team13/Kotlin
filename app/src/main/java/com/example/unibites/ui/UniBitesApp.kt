@@ -54,7 +54,7 @@ private fun NavGraphBuilder.unibitesNavGraph(
     onSnackSelected: (String, NavBackStackEntry) -> Unit,
     upPress: () -> Unit,
     onNavigateToRoute: (String) -> Unit,
-    onNavigateMap: (NavBackStackEntry, Double, Double) -> Unit,
+    onNavigateMap: ( NavBackStackEntry, Double, Double) -> Unit,
     onNavigateHome: (NavBackStackEntry) -> Unit,
     onNavigateSignUp: (NavBackStackEntry) -> Unit,
     onNavigateToSignIn: (NavBackStackEntry) -> Unit,
@@ -65,9 +65,9 @@ private fun NavGraphBuilder.unibitesNavGraph(
         route = MainDestinations.HOME_ROUTE,
         startDestination = HomeSections.FEED.route
     ) {
-        addHomeGraph(onSnackSelected, onNavigateToRoute, upPress= upPress, onNavigateMap = onNavigateMap, onSignOut = {
+        addHomeGraph(onSnackSelected, onNavigateToRoute, upPress = upPress, onNavigateMap = onNavigateMap) {
             onSignOut()
-        })
+        }
     }
 
     composable(route= "${MainDestinations.MAP_ROUTE}/{latitud}/{longitud}", arguments = listOf(  navArgument("latitud") { type = NavType.StringType }, navArgument("longitud") { type = NavType.StringType })){

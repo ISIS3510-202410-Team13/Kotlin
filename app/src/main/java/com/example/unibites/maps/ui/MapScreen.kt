@@ -25,7 +25,6 @@ import com.google.maps.android.compose.rememberMarkerState
 
 val userLocation = LatLng(4.6029286, -74.0653713)
 
-// prueba
 @Composable
 fun MyUniMap(latitud: Double, longitud: Double){
     var ubicacionRerstaurante = LatLng(latitud, longitud)
@@ -35,7 +34,7 @@ fun MyUniMap(latitud: Double, longitud: Double){
         position = defaultCameraPosition
     }
     val properties by remember {
-        mutableStateOf(MapProperties(mapType = MapType.HYBRID))
+        mutableStateOf(MapProperties(mapType = MapType.NORMAL))
     }
     val restaurantLocationState = rememberMarkerState(position = ubicacionRerstaurante)
     GoogleMap(modifier = Modifier.fillMaxWidth(), properties = properties, uiSettings = MapUiSettings(zoomControlsEnabled = true, myLocationButtonEnabled = true), cameraPositionState = cameraPositionState){

@@ -115,8 +115,8 @@ fun NavGraphBuilder.addHomeGraph(
         "${MainDestinations.SNACK_DETAIL_ROUTE}/{llave}",
         arguments = listOf(navArgument("llave") { type = NavType.StringType })
     ) { backStackEntry ->
-        /*val arguments = requireNotNull(backStackEntry.arguments)
-        val snackId = arguments.getString(MainDestinations.SNACK_ID_KEY)**/
+        val arguments = requireNotNull(backStackEntry.arguments)
+        val snackId = arguments.getString(MainDestinations.SNACK_ID_KEY)
         val snackViewModel: SnackDetailViewModel = viewModel()
         SnackDetail(
             "snackId" ?: "",

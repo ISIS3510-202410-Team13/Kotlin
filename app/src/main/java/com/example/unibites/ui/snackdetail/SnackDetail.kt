@@ -62,10 +62,12 @@ import com.example.unibites.ui.components.UniBitesDivider
 import com.example.unibites.ui.components.UniBitesSurface
 import com.example.unibites.ui.components.SnackCollection
 import com.example.unibites.ui.components.SnackImage
+import com.example.unibites.ui.home.HomeViewModel
 import com.example.unibites.ui.theme.UniBitesTheme
 import com.example.unibites.ui.theme.Neutral8
 import com.example.unibites.ui.utils.formatPrice
 import com.example.unibites.ui.utils.mirroringBackIcon
+import kotlinx.coroutines.withContext
 import kotlin.math.max
 import kotlin.math.min
 
@@ -80,6 +82,16 @@ private val ExpandedImageSize = 300.dp
 private val CollapsedImageSize = 150.dp
 private val HzPadding = Modifier.padding(horizontal = 24.dp)
 
+
+fun getSnackFromId(snackId: String): Snack {
+    val homeViewModel = HomeViewModel()
+    var snack = homeViewModel.getSnack(snackId)
+    if (snack == null) {
+        snack = snacks.get(0)
+    }
+    return snack
+}
+
 @Composable
 fun SnackDetail(
     snackId: String,
@@ -87,7 +99,7 @@ fun SnackDetail(
     onMapClick: () -> Unit,
     snackDetailState: SnackDetailState
 ) {
-    val snack = remember(snackId) { snacks.get(0) }
+    val snack = remember(snackId) { getSnackFromId(snackId) }
     val related = remember(snackId) { listOf<SnackCollection>() }
 
     Box(Modifier.fillMaxSize()) {
@@ -101,7 +113,7 @@ fun SnackDetail(
                 color = UniBitesTheme.colors.iconPrimary
             )
         }
-        Body(related, scroll, onMapClick)
+        Body(related, scroll, onMapClick, snack)
         Title(snack) { scroll.value }
         Image(snack.imageUrl) { scroll.value }
         Up(upPress)
@@ -143,7 +155,8 @@ private fun Up(upPress: () -> Unit) {
 private fun Body(
     related: List<SnackCollection>,
     scroll: ScrollState,
-    onMapClick: () -> Unit
+    onMapClick: () -> Unit,
+    snack: Snack
 ) {
     Column {
         Spacer(
@@ -163,7 +176,7 @@ private fun Body(
 
                     Spacer(Modifier.height(16.dp))
                     Text(
-                        text = stringResource(R.string.detail_header),
+                        text = stringResource(R.string.Description),
                         style = MaterialTheme.typography.overline,
                         color = UniBitesTheme.colors.textHelp,
                         modifier = HzPadding
@@ -171,7 +184,7 @@ private fun Body(
                     Spacer(Modifier.height(16.dp))
                     var seeMore by remember { mutableStateOf(true) }
                     Text(
-                        text = stringResource(R.string.detail_placeholder),
+                        text = snack.description,
                         style = MaterialTheme.typography.body1,
                         color = UniBitesTheme.colors.textHelp,
                         maxLines = if (seeMore) 5 else Int.MAX_VALUE,
@@ -203,10 +216,10 @@ private fun Body(
                             .fillMaxWidth()
                             .heightIn(100.dp)
                     ) {
-                        //MyUniMap()
-                        Button(onClick = onMapClick ) {
-                            Text(text ="Ver en el mapa")
-                        }
+
+                       UniBitesButton(onClick = onMapClick) {
+                           Text(stringResource(R.string.ver_en_el_mapa))
+                       }
                     }
 
                     UniBitesDivider()
@@ -273,7 +286,7 @@ private fun Title(snack: Snack, scrollProvider: () -> Int) {
 @Composable
 private fun Image(
     imageUrl: String,
-    scrollProvider: () -> Int
+    scrollProvider: () -> Int,
 ) {
     val collapseRange = with(LocalDensity.current) { (MaxTitleOffset - MinTitleOffset).toPx() }
     val collapseFractionProvider = {

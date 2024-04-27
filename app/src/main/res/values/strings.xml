@@ -75,6 +75,8 @@
     <string name="signin">"Ingresar "</string>
     <string name="signup">"Registro"</string>
     <string name="sign_out">Cerrar sesión</string>
+    <string name="ver_en_el_mapa">Ver en el mapa</string>
+    <string name="Description">Descripción</string>
 
 
 </resources>
