@@ -39,22 +39,14 @@ class MainActivity : ComponentActivity() {
             )
             // Let Firebase Crashlytics handle the uncaught exception
             FirebaseCrashlytics.getInstance().recordException(throwable)
+            // Log the crash data to Firestore
+            FirebaseFirestore.getInstance().collection("crashes").add(crashData)
         }
 
         setContent { UniBitesApp(auth) }
     }
 
 
-}
-
-@Composable
-fun CrashButton(onClick: () -> Unit) {
-    Button(
-        onClick = onClick,
-        modifier = Modifier.padding(16.dp)
-    ) {
-        Text("Trigger Crash")
-    }
 }
 
 
