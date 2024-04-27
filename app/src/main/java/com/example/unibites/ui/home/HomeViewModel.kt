@@ -11,14 +11,24 @@ import com.example.unibites.model.CollectionType
 import com.example.unibites.model.Snack
 import com.example.unibites.model.SnackCollection
 import com.google.firebase.Firebase
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.firestoreSettings
+import com.google.firebase.firestore.memoryCacheSettings
+import com.google.firebase.firestore.persistentCacheSettings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class HomeViewModel: ViewModel() {
         var uiState by mutableStateOf(HomeState())
-        val db = Firebase.firestore
+        var db = Firebase.firestore
+
+        // The default cache size threshold is 100 MB. Configure "setCacheSizeBytes"
+        // for a different threshold (minimum 1 MB) or set to "CACHE_SIZE_UNLIMITED"
+        // to disable clean-up.
+
+
         init {
                 viewModelScope.launch {
                         uiState = uiState.copy(loading = true)
@@ -41,6 +51,10 @@ class HomeViewModel: ViewModel() {
                 }
         }
         suspend fun getSnacks(onSuccess: (List<Snack>) -> Unit){
+                val settings = FirebaseFirestoreSettings.Builder()
+                        .setCacheSizeBytes(FirebaseFirestoreSettings.CACHE_SIZE_UNLIMITED)
+                        .build()
+                db.firestoreSettings = settings
                 withContext(Dispatchers.IO){
                         db.collection("restaurants").get()
                                 .addOnSuccessListener { result ->
