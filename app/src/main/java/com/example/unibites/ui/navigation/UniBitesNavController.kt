@@ -18,6 +18,7 @@ object MainDestinations {
     const val SNACK_DETAIL_ROUTE = "snack"
     const val SNACK_ID_KEY = "snackId"
     const val MAP_ROUTE = "map"
+    const val PREFERENCES_ROUTE = "preferences"
 }
 
 
@@ -92,6 +93,10 @@ class UniBitesNavController(
 
     fun navigateToSignIn(from: NavBackStackEntry) {
         navController.navigate(MainDestinations.SIGNIN_ROUTE)
+    }
+
+    fun navigateToPreferences(from: NavBackStackEntry) {
+        navController.navigate(MainDestinations.PREFERENCES_ROUTE)
     }
 }
 

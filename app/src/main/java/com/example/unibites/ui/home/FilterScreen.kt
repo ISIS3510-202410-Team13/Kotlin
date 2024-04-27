@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -51,6 +52,7 @@ fun FilterScreen(
 ) {
     var sortState by remember { mutableStateOf(SnackRepo.getSortDefault()) }
     var maxCalories by remember { mutableFloatStateOf(0f) }
+    var maxDistance by remember { mutableFloatStateOf(0f) }
     val defaultFilter = SnackRepo.getSortDefault()
 
     Dialog(onDismissRequest = onDismiss) {
@@ -112,20 +114,32 @@ fun FilterScreen(
                         sortState = filter.name
                     }
                 )
-                FilterChipSection(
-                    title = stringResource(id = R.string.price),
-                    filters = priceFilters
+                UniBitesSlider(
+                    sliderPosition = maxDistance,
+                    onValueChanged = { newValue ->
+                        maxDistance = newValue
+                    },
+                    rangeText = "${maxDistance.toInt()} KM",
+                    title = "Distancia máxima a recorrer",
+                    subtitle = "hasta el restaurante más cercano",
+                    steps = 3,
+                    valueRange = 1f..5f
                 )
                 FilterChipSection(
                     title = stringResource(id = R.string.category),
                     filters = categoryFilters
                 )
 
-                MaxCalories(
+                UniBitesSlider(
                     sliderPosition = maxCalories,
-                    onValueChanged = { newValue ->
+                    onValueChanged = { newValue: Float ->
                         maxCalories = newValue
-                    }
+                    },
+                    rangeText = "${maxCalories.toInt()} cal",
+                    title = "Límite de calorías",
+                    subtitle = "por porción",
+                    steps = 5,
+                    valueRange = 0f..2400f
                 )
                 FilterChipSection(
                     title = stringResource(id = R.string.lifestyle),
@@ -186,11 +200,44 @@ fun SortFilters(
 }
 
 @Composable
-fun MaxCalories(sliderPosition: Float, onValueChanged: (Float) -> Unit) {
+fun PriceRange(sliderPosition: Float, onValueChanged: (Float) -> Unit) {
+    val rangeText = when (sliderPosition.toInt()) {
+        1 -> "1 KM"
+        2 -> "3 KM"
+        3 -> "5+ KM"
+        else -> "1 KM"
+    }
     FlowRow {
-        FilterTitle(text = stringResource(id = R.string.max_calories))
+        FilterTitle(text = stringResource(id = R.string.max_distance))
+    }
+    Slider(
+        value = sliderPosition,
+        onValueChange = { newValue ->
+            onValueChanged(newValue)
+        },
+        valueRange = 1f..3f,
+        steps = 3,
+        modifier = Modifier
+            .fillMaxWidth(),
+        colors = SliderDefaults.colors(
+            thumbColor = UniBitesTheme.colors.brand,
+            activeTrackColor = UniBitesTheme.colors.brand
+        )
+    )
+    Text(
+        text = rangeText,
+        color = UniBitesTheme.colors.textPrimary,
+        modifier = Modifier.padding(top = 4.dp)
+    )
+    Spacer(modifier = Modifier.padding(16.dp))
+}
+
+@Composable
+fun UniBitesSlider(sliderPosition: Float, onValueChanged: (Float) -> Unit, rangeText: String, title: String, subtitle: String, steps: Int, valueRange: ClosedFloatingPointRange<Float> = 0f..1f) {
+    FlowRow {
+        FilterTitle(text = title)
         Text(
-            text = stringResource(id = R.string.per_serving),
+            text = subtitle,
             style = MaterialTheme.typography.body2,
             color = UniBitesTheme.colors.brand,
             modifier = Modifier.padding(top = 5.dp, start = 10.dp)
@@ -201,8 +248,8 @@ fun MaxCalories(sliderPosition: Float, onValueChanged: (Float) -> Unit) {
         onValueChange = { newValue ->
             onValueChanged(newValue)
         },
-        valueRange = 0f..300f,
-        steps = 5,
+        valueRange = valueRange,
+        steps = steps,
         modifier = Modifier
             .fillMaxWidth(),
         colors = SliderDefaults.colors(
@@ -210,6 +257,12 @@ fun MaxCalories(sliderPosition: Float, onValueChanged: (Float) -> Unit) {
             activeTrackColor = UniBitesTheme.colors.brand
         )
     )
+    Text(
+        text = rangeText,
+        color = UniBitesTheme.colors.textPrimary,
+        modifier = Modifier.padding(top = 4.dp)
+    )
+    Spacer(modifier = Modifier.padding(16.dp))
 }
 
 @Composable

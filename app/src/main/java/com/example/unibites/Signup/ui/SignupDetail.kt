@@ -10,14 +10,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -29,28 +26,24 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavBackStackEntry
-import com.example.unibites.R
 import com.example.unibites.signup.repository.SignUpViewModel
 import com.example.unibites.ui.components.UniBitesButton
 import com.example.unibites.ui.components.UniBitesSurface
-import com.example.unibites.ui.home.search.NoResults
 import com.example.unibites.ui.theme.UniBitesTheme
 import kotlinx.coroutines.launch
 
 @Composable
 fun SignUpDetail(
-        navBackStackEntry: NavBackStackEntry,
-        viewModel: SignUpViewModel,
-        onNavigateHome: (NavBackStackEntry) -> Unit,
-        onNavigateToSignIn: (NavBackStackEntry) -> Unit
+    navBackStackEntry: NavBackStackEntry,
+    viewModel: SignUpViewModel,
+    onNavigatePreferences: (NavBackStackEntry) -> Unit,
+    onNavigateToSignIn: (NavBackStackEntry) -> Unit
 ){
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -66,7 +59,7 @@ fun SignUpDetail(
 
     LaunchedEffect(key1 = viewModel.uiState.registered) {
         if(viewModel.uiState.registered){
-            onNavigateHome(navBackStackEntry)
+            onNavigatePreferences(navBackStackEntry)
         }
     }
     UniBitesTheme {
@@ -161,7 +154,7 @@ fun SignUpDetail(
                                             "Registro satisfactorio",
                                             Toast.LENGTH_SHORT
                                         ).show()
-                                        onNavigateHome(navBackStackEntry)
+                                        onNavigatePreferences(navBackStackEntry)
 
                                     }
                                 },
