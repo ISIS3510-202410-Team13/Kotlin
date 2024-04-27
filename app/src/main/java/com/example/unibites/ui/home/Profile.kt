@@ -11,7 +11,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Chip
 import androidx.compose.material3.Button
+import androidx.compose.material3.SuggestionChip
+import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -58,17 +61,17 @@ fun Profile(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
-                .fillMaxSize()
-                .wrapContentSize()
-                .padding(24.dp)
-                .padding(paddingValues)
+                    .fillMaxSize()
+                    .wrapContentSize()
+                    .padding(24.dp)
+                    .padding(paddingValues)
         ) {
             Image(
                 painter = painterResource(R.drawable.placeholder),
                 contentDescription = "User Icon",
                 modifier = Modifier
-                    .size(120.dp)
-                    .clip(CircleShape)
+                        .size(120.dp)
+                        .clip(CircleShape)
             )
 
             Spacer(Modifier.height(16.dp))
@@ -83,9 +86,12 @@ fun Profile(
             Spacer(Modifier.height(24.dp))
 
             Text(
-                "Preferences:",
-                color = UniBitesTheme.colors.textPrimary
+                "Estas son tus preferencias",
+                color = UniBitesTheme.colors.textHelp,
             )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
             PreferencesSummary(context)
 
             Spacer(Modifier.height(24.dp))
@@ -103,14 +109,42 @@ fun PreferencesSummary(context: Context) {
     val sharedPreferences = context.getSharedPreferences("UserPreferences", Context.MODE_PRIVATE)
 
     val priceRange = sharedPreferences.getInt("priceRange", 0)
+
     val distanceLimit = sharedPreferences.getInt("distanceLimit", 0)
     val isVegan = sharedPreferences.getBoolean("isVegan", false)
+    var vegano = ""
     val allergies = sharedPreferences.getStringSet("allergies", emptySet()) ?: emptySet()
+    vegano = if(isVegan){
+        "Sí"
+    } else {
+        "No"
+    }
+
 
     Column {
-        Text("Price Range: $priceRange")
-        Text("Distance Limit: $distanceLimit")
-        Text("Is Vegan: $isVegan")
-        Text("Allergies: ${allergies.joinToString(", ")}")
+        SuggestionChip(onClick = {  }, label = { Text("Rango de precios: $priceRange") }, colors = SuggestionChipDefaults.suggestionChipColors(
+                containerColor = UniBitesTheme.colors.brandSecondary,
+                labelColor = UniBitesTheme.colors.textInteractive
+
+        ) )
+        SuggestionChip(onClick = {  }, label = { Text("Distancia Máxima $distanceLimit") }, colors = SuggestionChipDefaults.suggestionChipColors(
+                containerColor = UniBitesTheme.colors.brandSecondary,
+                labelColor = UniBitesTheme.colors.textInteractive
+
+        ))
+        SuggestionChip(onClick = {  }, label = { Text("Eres Vegano? $vegano") }, colors = SuggestionChipDefaults.suggestionChipColors(
+                containerColor = UniBitesTheme.colors.brandSecondary,
+                labelColor = UniBitesTheme.colors.textInteractive
+
+        ))
+        allergies.forEachIndexed() {
+            index, allergy ->
+            SuggestionChip(onClick = {  }, label = { Text("Alergia ${index + 1}: $allergy") }, colors = SuggestionChipDefaults.suggestionChipColors(
+                    containerColor = UniBitesTheme.colors.brandSecondary,
+                    labelColor = UniBitesTheme.colors.textInteractive
+
+            ))
+
+            }
     }
 }
