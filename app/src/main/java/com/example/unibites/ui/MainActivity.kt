@@ -39,7 +39,6 @@ class MainActivity : ComponentActivity() {
             )
             // Let Firebase Crashlytics handle the uncaught exception
             FirebaseCrashlytics.getInstance().recordException(throwable)
-
         }
 
         setContent { UniBitesApp(auth) }

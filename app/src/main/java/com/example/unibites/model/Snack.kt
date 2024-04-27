@@ -28,6 +28,7 @@ val snacks = listOf<Snack>(
         rating =  "5",
         lat =  0.0,
         long = 0.0,
+        description = "Restaurante de comida italiana"
     ),
     Snack(
         id = "2",

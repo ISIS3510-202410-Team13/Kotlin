@@ -71,6 +71,28 @@ class HomeViewModel: ViewModel() {
                                 }
                 }
         }
+
+        fun retrieveSnacks(): List<SnackCollection>{
+                return uiState.objeto
+        }
+
+        fun getSnack(snackId: String): Snack?{
+                var searchedSnack: Snack? = null
+                var exit : Boolean = false
+                for (snackCollection in uiState.objeto){
+                        for (snack in snackCollection.snacks){
+                                if (snack.id == snackId){
+                                        searchedSnack= snack
+                                        exit = true
+                                        break
+                                }
+                        }
+                        if (exit){
+                                break
+                        }
+                }
+                return searchedSnack
+        }
 }
 
 data class HomeState(

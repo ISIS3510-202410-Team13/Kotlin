@@ -54,7 +54,7 @@ private fun NavGraphBuilder.unibitesNavGraph(
     onSnackSelected: (String, NavBackStackEntry) -> Unit,
     upPress: () -> Unit,
     onNavigateToRoute: (String) -> Unit,
-    onNavigateMap: (NavBackStackEntry, Double, Double) -> Unit,
+    onNavigateMap: (String, NavBackStackEntry, Double, Double) -> Unit,
     onNavigateHome: (NavBackStackEntry) -> Unit,
     onNavigateSignUp: (NavBackStackEntry) -> Unit,
     onNavigateToSignIn: (NavBackStackEntry) -> Unit,
@@ -70,7 +70,7 @@ private fun NavGraphBuilder.unibitesNavGraph(
         })
     }
 
-    composable(route= "${MainDestinations.MAP_ROUTE}/{latitud}/{longitud}", arguments = listOf(  navArgument("latitud") { type = NavType.StringType }, navArgument("longitud") { type = NavType.StringType })){
+    composable(route= "${MainDestinations.MAP_ROUTE}/${MainDestinations.SNACK_ID_KEY}/{latitud}/{longitud}", arguments = listOf(  navArgument("latitud") { type = NavType.StringType }, navArgument("longitud") { type = NavType.StringType })){
 
         val latitud = it.arguments?.getString("latitud")?.toDouble() ?: 0.0
         val longitud = it.arguments?.getString("longitud")?.toDouble() ?: 0.0
