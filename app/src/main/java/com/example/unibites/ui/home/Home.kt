@@ -85,7 +85,7 @@ fun NavGraphBuilder.addHomeGraph(
     onNavigateToRoute: (String) -> Unit,
     modifier: Modifier = Modifier,
     upPress: () -> Unit,
-    onNavigateMap: (String, NavBackStackEntry, Double, Double) -> Unit,
+    onNavigateMap: (NavBackStackEntry, Double, Double) -> Unit,
     onSignOut: () -> Unit
 ) {
     composable(HomeSections.FEED.route) { from ->
@@ -123,7 +123,6 @@ fun NavGraphBuilder.addHomeGraph(
             upPress,
             {
                 onNavigateMap(
-                    snackId?: "",
                     backStackEntry,
                     snackViewModel.uiState.latitud,
                     snackViewModel.uiState.longitud

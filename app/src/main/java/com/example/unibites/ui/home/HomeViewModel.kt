@@ -78,7 +78,7 @@ class HomeViewModel: ViewModel() {
 
         fun getSnack(snackId: String): Snack?{
                 var searchedSnack: Snack? = null
-                var exit : Boolean = false
+                var exit = false
                 for (snackCollection in uiState.objeto){
                         for (snack in snackCollection.snacks){
                                 if (snack.id == snackId){
