@@ -1,12 +1,10 @@
-package com.example.unibites.SignIn.repository
+package com.example.unibites.signin.repository
 
-import android.widget.Toast
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
 
 class SignInViewModel: ViewModel() {
