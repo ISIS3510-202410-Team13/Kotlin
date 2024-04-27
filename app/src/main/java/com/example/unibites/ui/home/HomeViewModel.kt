@@ -52,8 +52,7 @@ class HomeViewModel: ViewModel() {
         }
         suspend fun getSnacks(onSuccess: (List<Snack>) -> Unit){
                 val settings = FirebaseFirestoreSettings.Builder()
-                        .setCacheSizeBytes(FirebaseFirestoreSettings.CACHE_SIZE_UNLIMITED)
-                        .build()
+                        .setLocalCacheSettings(memoryCacheSettings { FirebaseFirestoreSettings.CACHE_SIZE_UNLIMITED }).build()
                 db.firestoreSettings = settings
                 withContext(Dispatchers.IO){
                         db.collection("restaurants").get()
