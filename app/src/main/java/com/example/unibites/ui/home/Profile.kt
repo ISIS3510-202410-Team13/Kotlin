@@ -67,7 +67,7 @@ fun Profile(
                     .padding(paddingValues)
         ) {
             Image(
-                painter = painterResource(R.drawable.placeholder),
+                painter = painterResource(R.drawable.avatar3),
                 contentDescription = "User Icon",
                 modifier = Modifier
                         .size(120.dp)

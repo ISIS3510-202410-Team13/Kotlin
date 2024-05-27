@@ -57,7 +57,32 @@ import com.example.unibites.ui.theme.Neutral8
 import com.example.unibites.ui.theme.UniBitesTheme
 import com.example.unibites.ui.utils.mirroringBackIcon
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.util.concurrent.ConcurrentHashMap
 import kotlin.math.absoluteValue
+
+object ReviewCache {
+    private val cache = ConcurrentHashMap<String, List<Review>>()
+    private val cacheTimestamps = ConcurrentHashMap<String, Long>()
+    private const val CACHE_TIMEOUT = 5 * 60 * 1000 // 5 minutes in milliseconds
+
+    fun getReviews(key: String): List<Review>? {
+        val currentTime = System.currentTimeMillis()
+        return if (cache.containsKey(key) && (currentTime - cacheTimestamps[key]!!) < CACHE_TIMEOUT) {
+            cache[key]
+        } else {
+            cache.remove(key)
+            cacheTimestamps.remove(key)
+            null
+        }
+    }
+
+    fun saveReviews(key: String, reviews: List<Review>) {
+        cache[key] = reviews
+        cacheTimestamps[key] = System.currentTimeMillis()
+    }
+}
 
 @Composable
 fun Reviews(restaurantName: String, onNavigateToRoute: (String) -> Unit, upPress: () -> Unit) {
@@ -66,13 +91,23 @@ fun Reviews(restaurantName: String, onNavigateToRoute: (String) -> Unit, upPress
 
 
     LaunchedEffect(restaurantName) {
-        db.collection("reviews")
-            .whereEqualTo("restaurant", restaurantName)
-            .get()
-            .addOnSuccessListener { result ->
+        withContext(Dispatchers.Default) {
+            val cachedReviews = ReviewCache.getReviews(restaurantName)
+            if (cachedReviews != null) {
                 reviews.clear()
-                reviews.addAll(result.documents.mapNotNull { it.toObject(Review::class.java) })
+                reviews.addAll(cachedReviews)
+            } else {
+                db.collection("reviews")
+                    .whereEqualTo("restaurant", restaurantName)
+                    .get()
+                    .addOnSuccessListener { result ->
+                        val fetchedReviews = result.documents.mapNotNull { it.toObject(Review::class.java) }
+                        reviews.clear()
+                        reviews.addAll(fetchedReviews)
+                        ReviewCache.saveReviews(restaurantName, fetchedReviews)
+                    }
             }
+        }
     }
 
     Box(Modifier.fillMaxSize()) {
