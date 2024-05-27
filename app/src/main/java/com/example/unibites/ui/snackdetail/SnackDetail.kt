@@ -229,6 +229,7 @@ private fun Body(
                             SnackCollection(
                                 snackCollection = snackCollection,
                                 onSnackClick = { },
+                                onReviewClick = { },
                                 highlight = false
                             )
                         }

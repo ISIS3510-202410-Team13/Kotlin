@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.unibites.model.Filter
 import com.example.unibites.model.SnackCollection
 import com.example.unibites.model.SnackRepo
@@ -41,9 +42,10 @@ import com.example.unibites.ui.theme.UniBitesTheme
 @Composable
 fun Feed(
     onSnackClick: (String) -> Unit,
+    onReviewClick: (String) -> Unit,
     onNavigateToRoute: (String) -> Unit,
     modifier: Modifier = Modifier,
-    homeUiState: HomeState
+    homeUiState: HomeState,
 ) {
     //val snackCollections = remember { SnackRepo.getSnacks() }
     val filters = remember { SnackRepo.getFilters() }
@@ -61,7 +63,8 @@ fun Feed(
             homeUiState.objeto,
             filters,
             onSnackClick,
-            Modifier.padding(paddingValues)
+            onReviewClick,
+            Modifier.padding(paddingValues),
         )
     }
 }
@@ -71,11 +74,12 @@ private fun Feed(
     snackCollections: List<SnackCollection>,
     filters: List<Filter>,
     onSnackClick: (String) -> Unit,
-    modifier: Modifier = Modifier
-) {
+    onReviewClick: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    ) {
     UniBitesSurface(modifier = modifier.fillMaxSize()) {
         Box {
-            SnackCollectionList(snackCollections, filters, onSnackClick)
+            SnackCollectionList(snackCollections, filters, onSnackClick, onReviewClick)
             LocationBar()
         }
     }
@@ -86,6 +90,7 @@ private fun SnackCollectionList(
     snackCollections: List<SnackCollection>,
     filters: List<Filter>,
     onSnackClick: (String) -> Unit,
+    onReviewClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var filtersVisible by rememberSaveable { mutableStateOf(false) }
@@ -108,7 +113,8 @@ private fun SnackCollectionList(
                 SnackCollection(
                     snackCollection = snackCollection,
                     onSnackClick = onSnackClick,
-                    index = index
+                    onReviewClick = onReviewClick,
+                    index = index,
                 )
             }
         }
@@ -126,12 +132,4 @@ private fun SnackCollectionList(
     }
 }
 
-@Preview("default")
-@Preview("dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Preview("large font", fontScale = 2f)
-@Composable
-fun HomePreview() {
-    UniBitesTheme {
-        Feed(homeUiState = HomeState(),onSnackClick = { }, onNavigateToRoute = { })
-    }
-}
+

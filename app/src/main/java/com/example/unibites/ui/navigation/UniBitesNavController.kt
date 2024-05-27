@@ -19,6 +19,7 @@ object MainDestinations {
     const val SNACK_ID_KEY = "snackId"
     const val MAP_ROUTE = "map"
     const val PREFERENCES_ROUTE = "preferences"
+    const val REVIEW_DETAIL_ROUTE = "review"
 }
 
 
@@ -66,6 +67,13 @@ class UniBitesNavController(
         // In order to discard duplicated navigation events, we check the Lifecycle
         if (from.lifecycleIsResumed()) {
             navController.navigate("${MainDestinations.SNACK_DETAIL_ROUTE}/$snackId")
+        }
+    }
+
+    fun navigateToReviewDetail(restaurantName: String, from: NavBackStackEntry) {
+        // In order to discard duplicated navigation events, we check the Lifecycle
+        if (from.lifecycleIsResumed()) {
+            navController.navigate("${MainDestinations.REVIEW_DETAIL_ROUTE}/$restaurantName")
         }
     }
 

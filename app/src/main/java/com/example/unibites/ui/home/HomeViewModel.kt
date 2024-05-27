@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.example.unibites.model.CollectionType
 import com.example.unibites.model.Snack
 import com.example.unibites.model.SnackCollection
@@ -22,6 +23,7 @@ import kotlinx.coroutines.withContext
 
 class HomeViewModel: ViewModel() {
         var uiState by mutableStateOf(HomeState())
+        var navController by mutableStateOf<NavController?>(null)
         var db = Firebase.firestore
 
         // The default cache size threshold is 100 MB. Configure "setCacheSizeBytes"
