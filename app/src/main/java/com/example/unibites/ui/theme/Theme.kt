@@ -32,6 +32,7 @@ import androidx.compose.ui.graphics.Color
 private val LightColorPalette = UniBitesColors(
     brand = Sea500,
     brandSecondary = Sea400,
+    sea300 = Sea300,
     uiBackground = Sea100,
     uiBorder = Sea200,
     uiFloated = Sea50,
@@ -57,6 +58,7 @@ private val LightColorPalette = UniBitesColors(
 private val DarkColorPalette = UniBitesColors(
     brand = Shadow1,
     brandSecondary = Ocean2,
+    sea300 = Shadow3,
     uiBackground = Neutral8,
     uiBorder = Neutral3,
     uiFloated = FunctionalDarkGrey,
@@ -116,6 +118,7 @@ class UniBitesColors(
     gradient2_1: List<Color>,
     gradient2_2: List<Color>,
     gradient2_3: List<Color>,
+    sea300: Color,
     brand: Color,
     brandSecondary: Color,
     uiBackground: Color,
@@ -138,6 +141,9 @@ class UniBitesColors(
     notificationBadge: Color = error,
     isDark: Boolean
 ) {
+
+    var sea300 by mutableStateOf(sea300)
+        private set
     var gradient6_1 by mutableStateOf(gradient6_1)
         private set
     var gradient6_2 by mutableStateOf(gradient6_2)
@@ -203,6 +209,7 @@ class UniBitesColors(
         gradient2_1 = other.gradient2_1
         gradient2_2 = other.gradient2_2
         gradient2_3 = other.gradient2_3
+        sea300 = other.sea300
         brand = other.brand
         brandSecondary = other.brandSecondary
         uiBackground = other.uiBackground
@@ -227,6 +234,7 @@ class UniBitesColors(
     }
 
     fun copy(): UniBitesColors = UniBitesColors(
+        sea300 = sea300,
         gradient6_1 = gradient6_1,
         gradient6_2 = gradient6_2,
         gradient3_1 = gradient3_1,

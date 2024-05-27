@@ -41,6 +41,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material.icons.outlined.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -75,6 +76,7 @@ import com.example.unibites.signin.repository.SignInViewModel
 import com.example.unibites.ui.components.UniBitesSurface
 import com.example.unibites.ui.home.search.Search
 import com.example.unibites.ui.navigation.MainDestinations
+import com.example.unibites.ui.reviews.Reviews
 import com.example.unibites.ui.snackdetail.SnackDetail
 import com.example.unibites.ui.snackdetail.SnackDetailViewModel
 import com.example.unibites.ui.theme.UniBitesTheme
@@ -82,6 +84,7 @@ import java.util.Locale
 
 fun NavGraphBuilder.addHomeGraph(
     onSnackSelected: (String, NavBackStackEntry) -> Unit,
+    onReviewSelected: (String, NavBackStackEntry) -> Unit,
     onNavigateToRoute: (String) -> Unit,
     modifier: Modifier = Modifier,
     upPress: () -> Unit,
@@ -92,9 +95,11 @@ fun NavGraphBuilder.addHomeGraph(
         val viewModel: HomeViewModel = viewModel()
         Feed(
             onSnackClick = { id -> onSnackSelected(id, from) },
+            onReviewClick = { restaurant -> onReviewSelected(restaurant, from) },
             onNavigateToRoute,
             modifier,
-            viewModel.uiState
+            viewModel.uiState,
+
         )
     }
     composable(HomeSections.SEARCH.route) { from ->
@@ -103,6 +108,26 @@ fun NavGraphBuilder.addHomeGraph(
             onNavigateToRoute,
             modifier
         )
+    }
+    composable(HomeSections.COUPON.route) {
+        Coupon(
+            onNavigateToRoute,
+            modifier
+        )
+    }
+    composable("${MainDestinations.REVIEW_DETAIL_ROUTE}/{restaurant}",
+
+        arguments = listOf(navArgument("restaurant") { type = NavType.StringType })
+    ) { backStackEntry ->
+        val arguments = requireNotNull(backStackEntry.arguments)
+        val restaurantName = arguments.getString("restaurant")
+        if (restaurantName != null) {
+            Reviews(
+                restaurantName,
+                onNavigateToRoute,
+                upPress
+            )
+        }
     }
     composable(HomeSections.PROFILE.route) {
         val viewModel = viewModel<SignInViewModel>()
@@ -141,6 +166,7 @@ enum class HomeSections(
 ) {
     FEED(R.string.home_feed, Icons.Outlined.Home, "home/feed"),
     SEARCH(R.string.home_search, Icons.Outlined.Search, "home/search"),
+    COUPON(R.string.coupon, Icons.Outlined.Star, "home/coupon"),
     PROFILE(R.string.home_profile, Icons.Outlined.AccountCircle, "home/profile")
 }
 

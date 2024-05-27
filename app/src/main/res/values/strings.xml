@@ -19,6 +19,7 @@
     <!-- Home Tabs -->
     <string name="home_feed">Inicio</string>
     <string name="home_search">Búsqueda</string>
+    <string name="coupon">Cupones</string>
     <string name="home_profile">Perfil</string>
 
     <!-- Home -->

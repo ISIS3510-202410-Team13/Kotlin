@@ -37,6 +37,7 @@ fun UniBitesApp(auth: FirebaseAuth) {
         ) {
             unibitesNavGraph(
                 onSnackSelected = unibitesNavController::navigateToSnackDetail,
+                onReviewSelected = unibitesNavController::navigateToReviewDetail,
                 upPress = unibitesNavController::upPress,
                 onNavigateToRoute = unibitesNavController::navigateToBottomBarRoute,
                 onNavigateMap = unibitesNavController::navigateToMapScreen,
@@ -52,6 +53,7 @@ fun UniBitesApp(auth: FirebaseAuth) {
 
 private fun NavGraphBuilder.unibitesNavGraph(
     onSnackSelected: (String, NavBackStackEntry) -> Unit,
+    onReviewSelected: (String, NavBackStackEntry) -> Unit,
     upPress: () -> Unit,
     onNavigateToRoute: (String) -> Unit,
     onNavigateMap: ( NavBackStackEntry, Double, Double) -> Unit,
@@ -65,7 +67,7 @@ private fun NavGraphBuilder.unibitesNavGraph(
         route = MainDestinations.HOME_ROUTE,
         startDestination = HomeSections.FEED.route
     ) {
-        addHomeGraph(onSnackSelected, onNavigateToRoute, upPress = upPress, onNavigateMap = onNavigateMap) {
+        addHomeGraph(onSnackSelected, onReviewSelected, onNavigateToRoute, upPress = upPress, onNavigateMap = onNavigateMap) {
             onSignOut()
         }
     }
