@@ -57,6 +57,8 @@ import com.example.unibites.ui.theme.Neutral8
 import com.example.unibites.ui.theme.UniBitesTheme
 import com.example.unibites.ui.utils.mirroringBackIcon
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlin.math.absoluteValue
 
 @Composable
@@ -66,13 +68,15 @@ fun Reviews(restaurantName: String, onNavigateToRoute: (String) -> Unit, upPress
 
 
     LaunchedEffect(restaurantName) {
-        db.collection("reviews")
-            .whereEqualTo("restaurant", restaurantName)
-            .get()
-            .addOnSuccessListener { result ->
-                reviews.clear()
-                reviews.addAll(result.documents.mapNotNull { it.toObject(Review::class.java) })
-            }
+        withContext(Dispatchers.Default){
+            db.collection("reviews")
+                .whereEqualTo("restaurant", restaurantName)
+                .get()
+                .addOnSuccessListener { result ->
+                    reviews.clear()
+                    reviews.addAll(result.documents.mapNotNull { it.toObject(Review::class.java) })
+                }
+        }
     }
 
     Box(Modifier.fillMaxSize()) {

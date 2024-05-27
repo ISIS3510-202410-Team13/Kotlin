@@ -99,7 +99,6 @@ fun NavGraphBuilder.addHomeGraph(
             onNavigateToRoute,
             modifier,
             viewModel.uiState,
-
         )
     }
     composable(HomeSections.SEARCH.route) { from ->

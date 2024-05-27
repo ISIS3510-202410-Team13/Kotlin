@@ -118,4 +118,5 @@ dependencies {
     // Crashlytics
     implementation("com.google.firebase:firebase-crashlytics")
     implementation("com.google.firebase:firebase-analytics")
+
 }

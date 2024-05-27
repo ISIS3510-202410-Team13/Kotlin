@@ -73,7 +73,6 @@ private fun NavGraphBuilder.unibitesNavGraph(
     }
 
     composable(route= "${MainDestinations.MAP_ROUTE}/{latitud}/{longitud}", arguments = listOf(  navArgument("latitud") { type = NavType.StringType }, navArgument("longitud") { type = NavType.StringType })){
-
         val latitud = it.arguments?.getString("latitud")?.toDouble() ?: 0.0
         val longitud = it.arguments?.getString("longitud")?.toDouble() ?: 0.0
         MyUniMap(latitud, longitud)
