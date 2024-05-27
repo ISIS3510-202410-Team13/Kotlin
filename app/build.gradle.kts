@@ -61,6 +61,10 @@ dependencies {
     val composeBom = platform("androidx.compose:compose-bom:2024.03.00")
     implementation(composeBom)
     androidTestImplementation(composeBom)
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation("androidx.datastore:datastore:1.0.0")
+    implementation("com.google.code.gson:gson:2.8.8")
+
 
     // Choose one of the following:
     // Material Design 3

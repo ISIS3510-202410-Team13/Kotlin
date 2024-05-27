@@ -1,7 +1,9 @@
 package com.example.unibites.ui.home
 
 import android.content.Context
+import android.os.Build
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -45,7 +47,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
 import com.example.unibites.R
+import com.example.unibites.coupon.CouponPreferences
 import com.example.unibites.ui.components.UniBitesButton
 import com.example.unibites.ui.components.UniBitesScaffold
 import com.example.unibites.ui.theme.UniBitesTheme
@@ -53,9 +59,17 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
+import com.google.gson.Gson
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
+import java.time.LocalDate
 
+
+
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun Coupon(
     onNavigateToRoute: (String) -> Unit,
@@ -64,6 +78,7 @@ fun Coupon(
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     var coupons by remember { mutableStateOf<List<Coupon>>(emptyList()) }
+    val couponPreferences = remember { CouponPreferences(context) }
     var couponCode by remember { mutableStateOf("") }
     var tabSelected by remember { mutableStateOf(0) }
     var showQRDialog by remember { mutableStateOf(false) }  // State for QR code dialog visibility
@@ -83,18 +98,25 @@ fun Coupon(
     }
 
     LaunchedEffect(Unit) {
-        scope.launch {
-            val db = FirebaseFirestore.getInstance()
-            val result = db.collection("coupons").get().await()
-            coupons = result.documents.mapNotNull { doc ->
-                Coupon(
-                    description = doc.getString("description") ?: "",
-                    endDate = doc.getString("end_date") ?: "",
-                    id = doc.getString("id") ?: "",
-                    isPublic = doc.getBoolean("is_public") ?: false,
-                    isValid = doc.getBoolean("is_valid") ?: false,
-                    restaurant = doc.getString("restaurant") ?: ""
-                )
+        val cachedCoupons = couponPreferences.getCoupons()
+        if (cachedCoupons != null && !couponPreferences.shouldInvalidateCache()) {
+            coupons = cachedCoupons
+        } else {
+            scope.launch {
+                val db = FirebaseFirestore.getInstance()
+                val result = db.collection("coupons").get().await()
+                val fetchedCoupons = result.documents.mapNotNull { doc ->
+                    Coupon(
+                        description = doc.getString("description") ?: "",
+                        endDate = doc.getString("end_date") ?: "",
+                        id = doc.getString("id") ?: "",
+                        isPublic = doc.getBoolean("is_public") ?: false,
+                        isValid = doc.getBoolean("is_valid") ?: false,
+                        restaurant = doc.getString("restaurant") ?: ""
+                    )
+                }
+                coupons = fetchedCoupons
+                couponPreferences.saveCoupons(fetchedCoupons)
             }
         }
     }

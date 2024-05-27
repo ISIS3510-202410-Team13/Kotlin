@@ -14,7 +14,8 @@ data class Snack(
     val price: String,
     val rating: String,
     val lat: Double,
-    val long: Double
+    val long: Double,
+    val type: String = ""
 )
 
 

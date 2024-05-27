@@ -4,29 +4,26 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import android.widget.Toast
+import com.example.unibites.services.InternetConnectionCallback
+
+import com.example.unibites.services.InternetConnectionObserver
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import com.google.firebase.crashlytics.internal.model.CrashlyticsReport
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.firestore
 
 
-class MainActivity : ComponentActivity() {
-
+class MainActivity : ComponentActivity(), InternetConnectionCallback {
 
     private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
+
         super.onCreate(savedInstanceState)
+        InternetConnectionObserver.instance(this).setCallback(this).register()
         auth = Firebase.auth
 
         // Set up uncaught exception handler
@@ -44,6 +41,17 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent { UniBitesApp(auth) }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        InternetConnectionObserver.unRegister()
+    }
+     override fun onConnected() {
+        Toast.makeText(this, "Conexión a internet resumida", Toast.LENGTH_LONG).show()
+    }
+
+    override fun onDisconnected() {
+        Toast.makeText(this, "Conexión a Internet perdida", Toast.LENGTH_LONG).show()
     }
 
 
