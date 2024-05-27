@@ -57,6 +57,7 @@ dependencies {
 
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.constraintlayout.compose)
+
     val composeBom = platform("androidx.compose:compose-bom:2024.03.00")
     implementation(composeBom)
     androidTestImplementation(composeBom)

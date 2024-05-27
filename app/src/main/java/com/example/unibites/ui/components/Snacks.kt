@@ -56,6 +56,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.unibites.R
@@ -63,10 +64,11 @@ import com.example.unibites.model.CollectionType
 import com.example.unibites.model.Snack
 import com.example.unibites.model.SnackCollection
 import com.example.unibites.model.snacks
+import com.example.unibites.ui.navigation.rememberUniBitesNavController
 import com.example.unibites.ui.theme.UniBitesTheme
 import com.example.unibites.ui.utils.mirroringIcon
 
-private val HighlightCardWidth = 170.dp
+private val HighlightCardWidth = 250.dp
 private val HighlightCardPadding = 16.dp
 private val Density.cardWidthWithPaddingPx
     get() = (HighlightCardWidth + HighlightCardPadding).toPx()
@@ -75,9 +77,10 @@ private val Density.cardWidthWithPaddingPx
 fun SnackCollection(
     snackCollection: SnackCollection,
     onSnackClick: (String) -> Unit,
+    onReviewClick: (String) -> Unit,
     modifier: Modifier = Modifier,
     index: Int = 0,
-    highlight: Boolean = true
+    highlight: Boolean = true,
 ) {
     Column(modifier = modifier) {
         Row(
@@ -97,22 +100,9 @@ fun SnackCollection(
                     .wrapContentWidth(Alignment.Start)
             )
 
-//            IconButton(
-//                onClick = { /* todo */ },
-//                modifier = Modifier.align(Alignment.CenterVertically)
-//            ) {
-//                Icon(
-//                    imageVector = mirroringIcon(
-//                        ltrIcon = Icons.Outlined.ArrowForward,
-//                        rtlIcon = Icons.Outlined.ArrowBack
-//                    ),
-//                    tint = UniBitesTheme.colors.brand,
-//                    contentDescription = null
-//                )
-//            }
         }
         if (highlight && snackCollection.type == CollectionType.Highlight) {
-            HighlightedSnacks(index, snackCollection.snacks, onSnackClick)
+            HighlightedSnacks(index, snackCollection.snacks, onSnackClick, onReviewClick)
         } else {
             Snacks(snackCollection.snacks, onSnackClick)
         }
@@ -124,7 +114,8 @@ private fun HighlightedSnacks(
     index: Int,
     snacks: List<Snack>,
     onSnackClick: (String) -> Unit,
-    modifier: Modifier = Modifier
+    onReviewClick: (String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val rowState = rememberLazyListState()
     val cardWidthWithPaddingPx = with(LocalDensity.current) { cardWidthWithPaddingPx }
@@ -150,9 +141,10 @@ private fun HighlightedSnacks(
             HighlightSnackItem(
                 snack = snack,
                 onSnackClick = onSnackClick,
+                onReviewClick = onReviewClick,
                 index = index,
                 gradient = gradient,
-                scrollProvider = scrollProvider
+                scrollProvider = scrollProvider,
             )
         }
     }
@@ -214,16 +206,17 @@ fun SnackItem(
 private fun HighlightSnackItem(
     snack: Snack,
     onSnackClick: (String) -> Unit,
+    onReviewClick: (String) -> Unit,
     index: Int,
     gradient: List<Color>,
     scrollProvider: () -> Float,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     UniBitesCard(
         modifier = modifier
             .size(
                 width = HighlightCardWidth,
-                height = 250.dp
+                height = 295.dp
             )
             .padding(bottom = 16.dp)
     ) {
@@ -278,9 +271,21 @@ private fun HighlightSnackItem(
                 color = UniBitesTheme.colors.textHelp,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
+            UniBitesButton(
+                modifier = Modifier
+                    .padding(start = 15.dp)
+                    .align(Alignment.Start),
+                onClick = {
+                    onReviewClick(snack.name)
+                })
+            {
+                Text(text = "Reseñas")
+            }
+
         }
     }
 }
+
 
 @Composable
 fun SnackImage(
@@ -308,19 +313,3 @@ fun SnackImage(
     }
 }
 
-@Preview("default")
-@Preview("dark theme", uiMode = UI_MODE_NIGHT_YES)
-@Preview("large font", fontScale = 2f)
-@Composable
-fun SnackCardPreview() {
-    UniBitesTheme {
-        val snack = snacks.first()
-        HighlightSnackItem(
-            snack = snack,
-            onSnackClick = { },
-            index = 0,
-            gradient = UniBitesTheme.colors.gradient6_1,
-            scrollProvider = { 0f }
-        )
-    }
-}

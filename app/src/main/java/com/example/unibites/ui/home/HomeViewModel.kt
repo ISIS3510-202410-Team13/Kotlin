@@ -7,12 +7,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.example.unibites.model.CollectionType
 import com.example.unibites.model.Snack
 import com.example.unibites.model.SnackCollection
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestoreSettings
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.firestoreSettings
+import com.google.firebase.firestore.memoryCacheSettings
+import com.google.firebase.firestore.persistentCacheSettings
 import com.google.firebase.firestore.firestoreSettings
 import com.google.firebase.firestore.memoryCacheSettings
 import com.google.firebase.firestore.persistentCacheSettings
@@ -22,6 +27,7 @@ import kotlinx.coroutines.withContext
 
 class HomeViewModel: ViewModel() {
         var uiState by mutableStateOf(HomeState())
+        var navController by mutableStateOf<NavController?>(null)
         var db = Firebase.firestore
 
         // The default cache size threshold is 100 MB. Configure "setCacheSizeBytes"
@@ -52,7 +58,8 @@ class HomeViewModel: ViewModel() {
         }
         suspend fun getSnacks(onSuccess: (List<Snack>) -> Unit){
                 val settings = FirebaseFirestoreSettings.Builder()
-                        .setLocalCacheSettings(memoryCacheSettings { FirebaseFirestoreSettings.CACHE_SIZE_UNLIMITED }).build()
+                        .setCacheSizeBytes(FirebaseFirestoreSettings.CACHE_SIZE_UNLIMITED)
+                        .build()
                 db.firestoreSettings = settings
                 withContext(Dispatchers.IO){
                         db.collection("restaurants").get()
@@ -83,6 +90,28 @@ class HomeViewModel: ViewModel() {
                                         onSuccess(list)
                                 }
                 }
+        }
+
+        fun retrieveSnacks(): List<SnackCollection>{
+                return uiState.objeto
+        }
+
+        fun getSnack(snackId: String): Snack?{
+                var searchedSnack: Snack? = null
+                var exit = false
+                for (snackCollection in uiState.objeto){
+                        for (snack in snackCollection.snacks){
+                                if (snack.id == snackId){
+                                        searchedSnack= snack
+                                        exit = true
+                                        break
+                                }
+                        }
+                        if (exit){
+                                break
+                        }
+                }
+                return searchedSnack
         }
 
         fun retrieveSnacks(): List<SnackCollection>{
